@@ -9,9 +9,9 @@ import java.util.StringTokenizer;
  * The UserInterface class contains the main entry point, and provides end-users
  * a means of interfacing with the application through the command-line.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
- * @author Shannon Fisher
+ * @author Shannon Fisher, Mihail Miltchev
  * 
  */
 public class UserInterface {
@@ -20,13 +20,19 @@ public class UserInterface {
 	private static Store store;
 	private static final int EXIT = 0;
 	private static final int ADD_CUSTOMER = 1;
-	private static final int ADD_MODEL = 2;
+	private static final int ADD_APPLIANCE = 2;
 	private static final int ADD_TO_INVENTORY = 3;
 	private static final int PURCHASE = 4;
 	private static final int LIST_CUSTOMERS = 5;
-	private static final int LIST_WASHERS = 6;
+	private static final int LIST_APPLIANCES = 6;
 	private static final int DISPLAY_TOTAL = 7;
-	private static final int SAVE = 8;
+	private static final int ENROLL_REPAIR_PLAN = 8;
+	private static final int WITHDRAW_REPAIR_PLAN = 9;
+	private static final int BILL_REPAIR_PLAN = 10;
+	private static final int LIST_REPAIR_PLAN_CUSTOMERS = 11;
+	private static final int LIST_BACKORDERS = 12;
+	private static final int SAVE = 13;
+	private static final int HELP = 14;
 
 	/**
 	 * Made private for the singleton pattern. Conditionally looks for any saved
@@ -144,7 +150,7 @@ public class UserInterface {
 		do {
 			try {
 				int value = Integer.parseInt(getToken(""));
-				if (value >= EXIT && value <= SAVE) {
+				if (value >= EXIT && value <= HELP) {
 					return value;
 				} else {
 					throw new NumberFormatException();
@@ -160,16 +166,22 @@ public class UserInterface {
 	 * 
 	 */
 	public void displayMenu() {
-		System.out.println("Enter a number between 0 and 8 as explained below: \n");
+		System.out.println("Enter a number between 0 and 14 as explained below: \n");
 		System.out.println("[" + ADD_CUSTOMER + "] Add a customer.");
-		System.out.println("[" + ADD_MODEL + "] Add a model.");
-		System.out.println("[" + ADD_TO_INVENTORY + "] Add a washer to inventory.");
-		System.out.println("[" + PURCHASE + "] Purchase a washer.");
+		System.out.println("[" + ADD_APPLIANCE + "] Add an appliance.");
+		System.out.println("[" + ADD_TO_INVENTORY + "] Add a appliance to inventory.");
+		System.out.println("[" + PURCHASE + "] Purchase an appliance.");
 		System.out.println("[" + LIST_CUSTOMERS + "] Display all customers.");
-		System.out.println("[" + LIST_WASHERS + "] Display all washers.");
+		System.out.println("[" + LIST_APPLIANCES + "] Display all appliances.");
 		System.out.println("[" + DISPLAY_TOTAL + "] Display total sales.");
+		System.out.println("[" + ENROLL_REPAIR_PLAN + "] Enroll customer in repair plan.");
+		System.out.println("[" + WITHDRAW_REPAIR_PLAN + "] Withdraw customer from repair plan.");
+		System.out.println("[" + BILL_REPAIR_PLAN + "] Bill customer's with repair plan.");
+		System.out.println("[" + LIST_REPAIR_PLAN_CUSTOMERS + "] Display repair plan customers.");
+		System.out.println("[" + LIST_BACKORDERS + "] Display backorders.");
 		System.out.println("[" + SAVE + "] Save data.");
-		System.out.println("[" + EXIT + "] to Exit");
+		System.out.println("[" + HELP + "] Display list of commands.");
+		System.out.println("[" + EXIT + "] Exit Application.");
 	}
 
 	/**
@@ -196,7 +208,7 @@ public class UserInterface {
 	 * washer.
 	 * 
 	 */
-	public void addWasher() {
+	public void addAppliance() {
 		do {
 			String brand = getToken("Enter washer brand: ");
 			String model = getToken("Enter washer model: ");
@@ -277,7 +289,7 @@ public class UserInterface {
 	 * inventory.
 	 * 
 	 */
-	public void listWashers() {
+	public void listAppliances() {
 		System.out.println(store.listWashers());
 	}
 
@@ -307,6 +319,27 @@ public class UserInterface {
 	 * method for retrieval.
 	 * 
 	 */
+	
+	public void enrollInRepairPlan() {
+		System.out.println("Entered enrollInRepairPlan() method.");
+	}
+	
+	public void withdrawFromRepairPlan() {
+		System.out.println("Entered withdrawFromRepairPlan() method.");
+	}
+	
+	public void billRepairPlanCustomers() {
+		System.out.println("Entered billRepairPlanCustomers() method.");
+	}
+	
+	public void listRepairPlanCustomers() {
+		System.out.println("Entered listRepairPlanCustomers() method.");
+	}
+	
+	public void listBackorders() {
+		System.out.println("Entered listBackorders() method.");
+	}
+	
 	private void retrieve() {
 		try {
 			if (store == null) {
@@ -335,8 +368,8 @@ public class UserInterface {
 			case ADD_CUSTOMER:
 				addCustomer();
 				break;
-			case ADD_MODEL:
-				addWasher();
+			case ADD_APPLIANCE:
+				addAppliance();
 				break;
 			case ADD_TO_INVENTORY:
 				addToInventory();
@@ -347,14 +380,32 @@ public class UserInterface {
 			case LIST_CUSTOMERS:
 				listCustomers();
 				break;
-			case LIST_WASHERS:
-				listWashers();
+			case LIST_APPLIANCES:
+				listAppliances();
 				break;
 			case DISPLAY_TOTAL:
 				displayTotal();
 				break;
 			case SAVE:
 				save();
+				break;
+			case HELP:
+				displayMenu();
+				break;
+			case ENROLL_REPAIR_PLAN:
+				enrollInRepairPlan();
+				break;
+			case WITHDRAW_REPAIR_PLAN:
+				withdrawFromRepairPlan();
+				break;
+			case BILL_REPAIR_PLAN:
+				billRepairPlanCustomers();
+				break;
+			case LIST_REPAIR_PLAN_CUSTOMERS:
+				listRepairPlanCustomers();
+				break;
+			case LIST_BACKORDERS:
+				listBackorders();
 				break;
 			}
 			displayMenu();
