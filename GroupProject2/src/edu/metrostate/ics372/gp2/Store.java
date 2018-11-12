@@ -120,31 +120,30 @@ public class Store implements Serializable {
 	 *            washer price
 	 * @return true if the washer model and brand could be added
 	 */
-	public Appliance addAppliance(int type, String brand, String model, double price) {
-		Appliance item = null;
+	public Appliance addAppliance(int type, String brand, String model, double price) {		
 		switch (type) {
 			case TYPE_WASHER:
 				Washer washer = new Washer(brand, model, price);
 				if (washerList.add(washer)) {
-					item = washer;
+					appliance = washer;
 				}
 				break;
 			case TYPE_DRYER:
 				Dryer dryer = new Dryer(brand, model, price);
 				if (dryerList.add(dryer)) {
-					item = dryer;
+					appliance = dryer;
 				}
 				break;
 			case TYPE_RANGE:
 				Range range = new Range(brand, model, price);
 				if (rangeList.add(range)) {
-					item = range;
+					appliance = range;
 				}
 				break;
 			case TYPE_DISHWASHER:
 				Dishwasher dishwasher = new Dishwasher(brand, model, price);
 				if (dishwasherList.add(dishwasher)) {
-					item = dishwasher;
+					appliance = dishwasher;
 				}
 				break;
 			case TYPE_FRIDGE:
@@ -156,11 +155,11 @@ public class Store implements Serializable {
 			case TYPE_FURNACE:
 				Furnace furnace = new Furnace(brand, model, price);
 				if (furnaceList.add(furnace)) {
-					item = furnace;
+					appliance = furnace;
 				}
 				break;
 		}
-		return item;
+		return appliance;
 	}
 
 	/**

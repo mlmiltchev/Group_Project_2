@@ -67,6 +67,65 @@ public class UserInterface {
 			return userInterface;
 		}
 	}
+	
+	/**
+	 * Orchestrates the whole process. Calls the appropriate method for the
+	 * different functionalities.
+	 * 
+	 */
+	public void process() {
+		displayMenu();
+		int command = getCommand();
+		while (command != EXIT) {
+			switch (command) {
+			case ADD_CUSTOMER:
+				addCustomer();
+				break;
+			case ADD_APPLIANCE:
+				addAppliance();
+				break;
+			case ADD_TO_INVENTORY:
+				addToInventory();
+				break;
+			case PURCHASE:
+				purchase();
+				break;
+			case LIST_CUSTOMERS:
+				listCustomers();
+				break;
+			case LIST_APPLIANCES:
+				listAppliances();
+				break;
+			case DISPLAY_TOTAL:
+				displayTotal();
+				break;
+			case SAVE:
+				save();
+				break;
+			case HELP:
+				displayMenu();
+				break;
+			case ENROLL_REPAIR_PLAN:
+				enrollInRepairPlan();
+				break;
+			case WITHDRAW_REPAIR_PLAN:
+				withdrawFromRepairPlan();
+				break;
+			case BILL_REPAIR_PLAN:
+				billRepairPlanCustomers();
+				break;
+			case LIST_REPAIR_PLAN_CUSTOMERS:
+				listRepairPlanCustomers();
+				break;
+			case LIST_BACKORDERS:
+				listBackorders();
+				break;
+			}
+			displayMenu();
+			command = getCommand();
+		}
+		System.out.println("Goodbye.");
+	}
 
 	/**
 	 * Gets a token after prompting
@@ -191,13 +250,15 @@ public class UserInterface {
 		System.out.println("[" + EXIT + "] Exit Application.");
 	}
 	
-	public void displayApplianceChoices() {
-		System.out.println("[" + TYPE_DISHWASHER + "] Dishwasher.");
-		System.out.println("[" + TYPE_DRYER + "] Dryer.");
-		System.out.println("[" + TYPE_FRIDGE + "] Refridgerator.");
-		System.out.println("[" + TYPE_FURNACE + "] Furnace.");
-		System.out.println("[" + TYPE_RANGE + "] Kitchen range.");
-		System.out.println("[" + TYPE_WASHER + "] Washer.");
+	public String displayApplianceChoices() {
+		StringBuilder displayApplianceString = new StringBuilder();		
+		displayApplianceString.append("\n\t[" + TYPE_DISHWASHER + "] Dishwasher.");									
+		displayApplianceString.append("\n\t[" + TYPE_DRYER + "] Dryer.");
+		displayApplianceString.append("\n\t[" + TYPE_FRIDGE + "] Refridgerator.");
+		displayApplianceString.append("\n\t[" + TYPE_FURNACE + "] Furnace.");
+		displayApplianceString.append("\n\t[" + TYPE_RANGE + "] Kitchen range.");
+		displayApplianceString.append("\n\t[" + TYPE_WASHER + "] Washer.");
+		return displayApplianceString.toString();
 	}
 	
 
@@ -226,15 +287,14 @@ public class UserInterface {
 	 * 
 	 */
 	public void addAppliance() {
-		do {
-			displayApplianceChoices();
-			int type = getInteger("Enter appliance type based on numbers above: ");
+		do {			
+			int type = getInteger("Enter appliance type: "+ displayApplianceChoices());
 			String brand = getToken("Enter appliance brand: ");
 			String model = getToken("Enter appliance model: ");
 			double price = getDouble("Enter appliance price: ");
-			Appliance item = store.addAppliance(type,brand, model, price);
-			if (item != null) {
-				System.out.println(item);
+			Appliance appliance = store.addAppliance(type,brand, model, price);
+			if (appliance != null) {
+				System.out.println(appliance);
 			} else {
 				System.out.println("Appliance could not be added.");
 			}
@@ -374,64 +434,7 @@ public class UserInterface {
 		}
 	}
 
-	/**
-	 * Orchestrates the whole process. Calls the appropriate method for the
-	 * different functionalities.
-	 * 
-	 */
-	public void process() {
-		displayMenu();
-		int command = getCommand();
-		while (command != EXIT) {
-			switch (command) {
-			case ADD_CUSTOMER:
-				addCustomer();
-				break;
-			case ADD_APPLIANCE:
-				addAppliance();
-				break;
-			case ADD_TO_INVENTORY:
-				addToInventory();
-				break;
-			case PURCHASE:
-				purchase();
-				break;
-			case LIST_CUSTOMERS:
-				listCustomers();
-				break;
-			case LIST_APPLIANCES:
-				listAppliances();
-				break;
-			case DISPLAY_TOTAL:
-				displayTotal();
-				break;
-			case SAVE:
-				save();
-				break;
-			case HELP:
-				displayMenu();
-				break;
-			case ENROLL_REPAIR_PLAN:
-				enrollInRepairPlan();
-				break;
-			case WITHDRAW_REPAIR_PLAN:
-				withdrawFromRepairPlan();
-				break;
-			case BILL_REPAIR_PLAN:
-				billRepairPlanCustomers();
-				break;
-			case LIST_REPAIR_PLAN_CUSTOMERS:
-				listRepairPlanCustomers();
-				break;
-			case LIST_BACKORDERS:
-				listBackorders();
-				break;
-			}
-			displayMenu();
-			command = getCommand();
-		}
-		System.out.println("Goodbye.");
-	}
+	
 
 	/**
 	 * The method to start the application. Simply calls process().
