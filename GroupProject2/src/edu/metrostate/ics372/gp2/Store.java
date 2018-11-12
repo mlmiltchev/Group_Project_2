@@ -42,6 +42,7 @@ public class Store implements Serializable {
 	private static final int TYPE_FURNACE = 4;
 	private static final int TYPE_RANGE = 5;
 	private static final int TYPE_WASHER = 6;
+	private Appliance appliance;
 
 
 	/**
