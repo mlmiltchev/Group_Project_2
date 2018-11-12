@@ -317,7 +317,7 @@ public class UserInterface {
 			int quantity = 0;
 			String brand = getToken("Enter appliance brand: ");
 			String model = getToken("Enter appliance model: ");
-			Washer washer = store.searchWashers(brand + model);
+			Washer washer = store.searchAppliances(brand + model);
 			if (washer == null) {
 				System.out.println("No such washer exists.");
 				return;

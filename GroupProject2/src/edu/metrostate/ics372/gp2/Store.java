@@ -163,7 +163,7 @@ public class Store implements Serializable {
 	 * @return true if the washer could be added to the inventory
 	 */
 	public boolean addWasherToInventory(String brand, String model, int quantity) {
-		Washer washer = searchWashers(brand + model);
+		Washer washer = searchAppliances(brand + model);
 		boolean result = inventory.insertWasher(washer, quantity);
 		if (result) {
 			processBackOrders();
@@ -172,7 +172,7 @@ public class Store implements Serializable {
 	}
 
 	public boolean purchaseWasher(String id, String brand, String model, int quantity) {
-		Washer washer = store.searchWashers(brand + model);
+		Washer washer = store.searchAppliances(brand + model);
 		Customer customer = null;
 		boolean purchase = customerList.findUser(id, customerList);
 		Iterator<Customer> customers = customerList.iterator();
@@ -274,15 +274,7 @@ public class Store implements Serializable {
 	}
 
 	private Iterator<Appliance> getListIterator(int type) {
-		Iterator<Appliance> appliances = null;
-		switch (type) {
-			case TYPE_ALL:
-				appliances = applianceList.iterator();
-				break;
-			default:
-				appliances = applianceList.getIterator(type);
-				break;
-		}
+		Iterator<Appliance> appliances = applianceList.getIterator(type);
 		return appliances;
 	}
 
@@ -327,7 +319,7 @@ public class Store implements Serializable {
 	 *            ID of the washer
 	 * @return true if the washer is in the washer collection
 	 */
-	public Washer searchWashers(String washerId) {
+	public Washer searchAppliances(String washerId) {
 		return applianceList.search(washerId);
 	}
 

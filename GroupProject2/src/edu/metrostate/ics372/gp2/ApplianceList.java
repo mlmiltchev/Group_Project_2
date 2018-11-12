@@ -1,5 +1,6 @@
 package edu.metrostate.ics372.gp2;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -32,6 +33,17 @@ public class ApplianceList extends ItemList<Appliance, String> {
 	}
 	
 	public Iterator<Appliance> getIterator(int type) {
-		return super.iterator();
+		Iterator<Appliance> appliances = this.iterator();
+		if(type == 0) {
+			return appliances;
+		}
+		ArrayList<Appliance> list = new ArrayList<Appliance>(); 
+		while (appliances.hasNext()) {
+			Appliance item = appliances.next();
+			if(item.getType() == type) {
+				list.add(item);
+			}
+		}
+		return list.iterator();
 	}
 }
