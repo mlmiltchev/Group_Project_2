@@ -317,20 +317,20 @@ public class UserInterface {
 			int quantity = 0;
 			String brand = getToken("Enter appliance brand: ");
 			String model = getToken("Enter appliance model: ");
-			Washer washer = store.searchAppliances(brand + model);
-			if (washer == null) {
-				System.out.println("No such washer exists.");
+			Appliance item = store.searchAppliances(brand + model);
+			if (item == null) {
+				System.out.println("No such appliance exists.");
 				return;
 			}
 			quantity = getInteger("Enter quantity to add: ");
-			boolean result = store.addWasherToInventory(brand, model, quantity);
+			boolean result = store.addApplianceToInventory(brand, model, quantity);
 			if(result) {
-				System.out.println("Added " + quantity + " of " + washer);
+				System.out.println("Added " + quantity + " of " + item);
 			}else {
-				System.out.println("Washer could not be added to inventory.");
+				System.out.println("Appliance could not be added to inventory.");
 			}
 			
-		} while (yesOrNo("Add more washers to the inventory?"));
+		} while (yesOrNo("Add more appliances to the inventory?"));
 	}
 
 	/**

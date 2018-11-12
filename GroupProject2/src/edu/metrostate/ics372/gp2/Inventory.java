@@ -41,8 +41,8 @@ public class Inventory extends ItemList<Appliance, String> {
 	 *            the washer to be inserted
 	 * @return true if the washer could be inserted
 	 */
-	public boolean insertWasher(Washer washer, int quantity) {
-		return super.add(washer, quantity);
+	public boolean insertAppliance(Appliance item, int quantity) {
+		return super.add(item, quantity);
 	}
 
 	/**
