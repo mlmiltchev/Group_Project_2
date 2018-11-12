@@ -4,7 +4,7 @@ package edu.metrostate.ics372.gp2;
  * The IMatchable interface is a base interface used for comparing two like
  * business objects.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

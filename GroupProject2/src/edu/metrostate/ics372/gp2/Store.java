@@ -6,16 +6,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * The Store class is used for calling the primary business functions of the
  * application. It keeps track of all customers, back orders, and washers in the
  * inventory.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 
@@ -25,9 +27,22 @@ public class Store implements Serializable {
 	private Inventory inventory;
 	private CustomerList customerList;
 	private WasherList washerList;
+	private DishwasherList dishwasherList;
+	private DryerList dryerList;
+	private FridgeList fridgeList;
+	private FurnaceList furnaceList;
+	private RangeList rangeList;
 	private BackOrderList backOrderList;
 	private static Store store;
 	private double totalSales = 0.0;
+	private static final int TYPE_ALL = 0;
+	private static final int TYPE_DISHWASHER = 1;
+	private static final int TYPE_DRYER = 2;
+	private static final int TYPE_FRIDGE = 3;
+	private static final int TYPE_FURNACE = 4;
+	private static final int TYPE_RANGE = 5;
+	private static final int TYPE_WASHER = 6;
+
 
 	/**
 	 * Private constructor using the singleton pattern. Creates the inventory,
@@ -37,6 +52,11 @@ public class Store implements Serializable {
 		inventory = Inventory.instance();
 		customerList = CustomerList.instance();
 		washerList = WasherList.instance();
+		dishwasherList = DishwasherList.instance();
+		dryerList = DryerList.instance();
+		fridgeList = FridgeList.instance();
+		furnaceList = FurnaceList.instance();
+		rangeList = RangeList.instance();
 		backOrderList = BackOrderList.instance();
 		totalSales = 0.0;
 	}
@@ -53,6 +73,21 @@ public class Store implements Serializable {
 		} else {
 			return store;
 		}
+	}
+	
+	/**
+	 * Displays the print screen.
+	 * 
+	 */
+	public void displayApplianceChoices() {
+		System.out.println("Enter a number between 0 and 6 as explained below: \n");
+		System.out.println("[" + TYPE_ALL + "] List all appliances.");
+		System.out.println("[" + TYPE_DISHWASHER + "] List all dishwashers.");
+		System.out.println("[" + TYPE_DRYER + "] List all dryers.");
+		System.out.println("[" + TYPE_FRIDGE + "] List all refridgerators.");
+		System.out.println("[" + TYPE_FURNACE + "] List all furnaces.");
+		System.out.println("[" + TYPE_RANGE + "] List all kitchen ranges.");
+		System.out.println("[" + TYPE_WASHER + "] List all washers.");
 	}
 
 	/**
@@ -85,12 +120,47 @@ public class Store implements Serializable {
 	 *            washer price
 	 * @return true if the washer model and brand could be added
 	 */
-	public Washer addWasher(String brand, String model, double price) {
-		Washer washer = new Washer(brand, model, price);
-		if (washerList.insertWasher(washer)) {
-			return (washer);
+	public Appliance addAppliance(int type, String brand, String model, double price) {
+		Appliance item = null;
+		switch (type) {
+			case TYPE_WASHER:
+				Washer washer = new Washer(brand, model, price);
+				if (washerList.add(washer)) {
+					item = washer;
+				}
+				break;
+			case TYPE_DRYER:
+				Dryer dryer = new Dryer(brand, model, price);
+				if (dryerList.add(dryer)) {
+					item = dryer;
+				}
+				break;
+			case TYPE_RANGE:
+				Range range = new Range(brand, model, price);
+				if (rangeList.add(range)) {
+					item = range;
+				}
+				break;
+			case TYPE_DISHWASHER:
+				Dishwasher dishwasher = new Dishwasher(brand, model, price);
+				if (dishwasherList.add(dishwasher)) {
+					item = dishwasher;
+				}
+				break;
+			case TYPE_FRIDGE:
+				Fridge fridge = new Fridge(brand, model, price);
+				if (fridgeList.add(fridge)) {
+					item = fridge;
+				}
+				break;
+			case TYPE_FURNACE:
+				Furnace furnace = new Furnace(brand, model, price);
+				if (furnaceList.add(furnace)) {
+					item = furnace;
+				}
+				break;
 		}
-		return null;
+		return item;
 	}
 
 	/**
@@ -175,25 +245,93 @@ public class Store implements Serializable {
 
 	/**
 	 * Organizes the operations for displaying all washers in the inventory.
-	 * 
 	 * @return a list of all washers in the inventory
 	 */
-	public String listWashers() {
-		Iterator<Washer> washers = inventory.getAllWashers();
-		Iterator<Washer> washerLog = washerList.iterator();
+	public String listAppliances() {
+		String output = "";
+		try {
+			displayApplianceChoices();
+			Scanner input = new Scanner(System.in);
+			int value = input.nextInt();
+			input.close();
+			if (value >= TYPE_ALL && value <= TYPE_FURNACE) {
+				output = handlePrinting(value);
+			} else {
+				throw new NumberFormatException();
+			}
+		} catch (NumberFormatException nfe) {
+			return "Invalid entry please try again.";
+		}
+		return output;
+	}
+	
+	public String handlePrinting(int type) {
+		Iterator<Appliance> appliances = inventory.getAllAppliances(type);
+		Iterator<Appliance> applianceLog = getListIterator(type);
 		StringBuilder stringBuilder = new StringBuilder();
-		Map<Washer,Integer> washerCount = new LinkedHashMap<Washer,Integer>();
-		while (washerLog.hasNext()) {
-			washerCount.put(washerLog.next(), 0);
+		Map<Appliance,Integer> applianceCount = new LinkedHashMap<Appliance,Integer>();
+		while (applianceLog.hasNext()) {
+			applianceCount.put(applianceLog.next(), 0);
 		}
-		while (washers.hasNext()) {
-			washerCount.merge(washers.next(), 1, (x, y) -> x + y);
+		while (appliances.hasNext()) {
+			applianceCount.merge(appliances.next(), 1, (x, y) -> x + y);
 		}
-		for (Map.Entry<Washer,Integer> entry : washerCount.entrySet()) {
+		for (Map.Entry<Appliance,Integer> entry : applianceCount.entrySet()) {
 			stringBuilder.append(entry.getKey() + " inventory count: " + entry.getValue() +"\n");
 		}
 		
 		return stringBuilder.toString();
+	}
+
+	private Iterator<Appliance> getListIterator(int type) {
+		Iterator<Appliance> appliances = null;
+		switch (type) {
+			case TYPE_ALL:
+				appliances = combineIterators();
+				break;
+			case TYPE_WASHER:
+				appliances = washerList.iterator();
+				break;
+			case TYPE_DRYER:
+				appliances = dryerList.iterator();
+				break;
+			case TYPE_RANGE:
+				appliances = rangeList.iterator();
+				break;
+			case TYPE_DISHWASHER:
+				appliances = dishwasherList.iterator();
+				break;
+			case TYPE_FRIDGE:
+				appliances = fridgeList.iterator();
+				break;
+			case TYPE_FURNACE:
+				appliances = furnaceList.iterator();
+				break;
+		}
+		return appliances;
+	}
+
+	private Iterator<Appliance> combineIterators() {
+		ArrayList<Appliance> list = new ArrayList<Appliance>(); 
+		while (washerList.iterator().hasNext()) {
+			list.add(washerList.iterator().next());
+		}
+		while (dryerList.iterator().hasNext()) {
+			list.add(washerList.iterator().next());
+		}
+		while (rangeList.iterator().hasNext()) {
+			list.add(washerList.iterator().next());
+		}
+		while (dishwasherList.iterator().hasNext()) {
+			list.add(washerList.iterator().next());
+		}
+		while (fridgeList.iterator().hasNext()) {
+			list.add(washerList.iterator().next());
+		}
+		while (fridgeList.iterator().hasNext()) {
+			list.add(furnaceList.iterator().next());
+		}
+		return list.iterator();
 	}
 
 	/**

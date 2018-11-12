@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The ItemList class is a base class used to manage generic collections.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

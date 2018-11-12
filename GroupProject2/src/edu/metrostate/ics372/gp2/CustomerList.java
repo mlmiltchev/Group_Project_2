@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * The CustomerList class is used to maintain a collection of customers.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

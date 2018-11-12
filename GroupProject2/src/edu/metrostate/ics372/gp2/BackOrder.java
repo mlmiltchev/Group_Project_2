@@ -7,7 +7,7 @@ import java.io.Serializable;
  * put on hold until the required quantity of washers for the sale are in the
  * inventory.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

@@ -1,17 +1,18 @@
 package edu.metrostate.ics372.gp2;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * The Inventory class is used to maintain a collection of washers and their
  * respective quantities currently in the inventory.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 
  */
-public class Inventory extends ItemList<Washer, String> {
+public class Inventory extends ItemList<Appliance, String> {
 
 	private static final long serialVersionUID = 1L;
 	private static Inventory inventory;
@@ -54,7 +55,7 @@ public class Inventory extends ItemList<Washer, String> {
 	 * @param quantity
 	 *            quantity to remove
 	 */
-	public void updateQuantity(String brand, String model, int quantity) {
+	/*public void updateQuantity(String brand, String model, int quantity) {
 		Iterator<Washer> washers = this.iterator();
 		while (washers.hasNext()) {
 			Washer washer = washers.next();
@@ -63,7 +64,7 @@ public class Inventory extends ItemList<Washer, String> {
 				quantity--;
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Finds a washer from the collection.
@@ -76,7 +77,7 @@ public class Inventory extends ItemList<Washer, String> {
 	 *            quantity desired to purchase
 	 * @return true if the washer was found with quantity met
 	 */
-	public boolean findWasher(String brand, String model, int quantity) {
+	/*public boolean findWasher(String brand, String model, int quantity) {
 		Iterator<Washer> washers = this.iterator();
 		boolean found = false;
 		int count = 0;
@@ -91,14 +92,29 @@ public class Inventory extends ItemList<Washer, String> {
 			found = true;
 		}
 		return found;
-	}
+	}*/
 
 	/**
 	 * Returns all washers and their quantities currently in the inventory.
 	 * 
 	 * @return all washers in the inventory
 	 */
-	public Iterator<Washer> getAllWashers() {
+	/*public Iterator<Washer> getAllWashers() {
 		return this.iterator();
+	}*/
+
+	public Iterator<Appliance> getAllAppliances(int type) {
+		Iterator<Appliance> appliances = this.iterator();
+		if(type == 0) {
+			return appliances;
+		}
+		ArrayList<Appliance> list = new ArrayList<Appliance>(); 
+		while (appliances.hasNext()) {
+			Appliance item = appliances.next();
+			if(item.getType() == type) {
+				list.add(item);
+			}
+		}
+		return list.iterator();
 	}
 }

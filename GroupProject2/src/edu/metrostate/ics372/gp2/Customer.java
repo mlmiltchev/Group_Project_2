@@ -8,7 +8,7 @@ import java.util.ListIterator;
 /**
  * The Customer class is used to manage a single customer.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

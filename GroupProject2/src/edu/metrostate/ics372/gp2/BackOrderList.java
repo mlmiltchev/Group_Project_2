@@ -3,7 +3,7 @@ package edu.metrostate.ics372.gp2;
 /**
  * The BackOrderList class is used to maintain a collection of back orders.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 

@@ -34,6 +34,13 @@ public class UserInterface {
 	private static final int SAVE = 13;
 	private static final int HELP = 14;
 
+	private static final int TYPE_DISHWASHER = 1;
+	private static final int TYPE_DRYER = 2;
+	private static final int TYPE_FRIDGE = 3;
+	private static final int TYPE_FURNACE = 4;
+	private static final int TYPE_RANGE = 5;
+	private static final int TYPE_WASHER = 6;
+
 	/**
 	 * Made private for the singleton pattern. Conditionally looks for any saved
 	 * data. Otherwise, it gets a singleton Store object.
@@ -92,7 +99,7 @@ public class UserInterface {
 	 * @return true for yes and false for no
 	 * 
 	 */
-	private boolean yesOrNo(String prompt) {
+	public boolean yesOrNo(String prompt) {
 		String more = getToken(prompt + " (Y|y)[es] or anything else for no");
 		if (more.charAt(0) != 'y' && more.charAt(0) != 'Y') {
 			return false;
@@ -183,6 +190,16 @@ public class UserInterface {
 		System.out.println("[" + HELP + "] Display list of commands.");
 		System.out.println("[" + EXIT + "] Exit Application.");
 	}
+	
+	public void displayApplianceChoices() {
+		System.out.println("[" + TYPE_DISHWASHER + "] Dishwasher.");
+		System.out.println("[" + TYPE_DRYER + "] Dryer.");
+		System.out.println("[" + TYPE_FRIDGE + "] Refridgerator.");
+		System.out.println("[" + TYPE_FURNACE + "] Furnace.");
+		System.out.println("[" + TYPE_RANGE + "] Kitchen range.");
+		System.out.println("[" + TYPE_WASHER + "] Washer.");
+	}
+	
 
 	/**
 	 * Method to be called for adding a customer. Prompts the user for the
@@ -210,16 +227,18 @@ public class UserInterface {
 	 */
 	public void addAppliance() {
 		do {
-			String brand = getToken("Enter washer brand: ");
-			String model = getToken("Enter washer model: ");
-			double price = getDouble("Enter washer price: ");
-			Washer washer = store.addWasher(brand, model, price);
-			if (washer != null) {
-				System.out.println(washer);
+			displayApplianceChoices();
+			int type = getInteger("Enter appliance type based on numbers above: ");
+			String brand = getToken("Enter appliance brand: ");
+			String model = getToken("Enter appliance model: ");
+			double price = getDouble("Enter appliance price: ");
+			Appliance item = store.addAppliance(type,brand, model, price);
+			if (item != null) {
+				System.out.println(item);
 			} else {
-				System.out.println("Washer could not be added.");
+				System.out.println("Appliance could not be added.");
 			}
-		} while (yesOrNo("Would you like to add another washer?"));
+		} while (yesOrNo("Would you like to add another Appliance?"));
 	}
 
 	/**
@@ -290,7 +309,7 @@ public class UserInterface {
 	 * 
 	 */
 	public void listAppliances() {
-		System.out.println(store.listWashers());
+		System.out.println(store.listAppliances());
 	}
 
 	/**

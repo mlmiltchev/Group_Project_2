@@ -3,12 +3,12 @@ package edu.metrostate.ics372.gp2;
 /**
  * The WasherList class is used to maintain a collection of washers.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 
  */
-public class WasherList extends ItemList<Washer, String> {
+public class WasherList extends ItemList<Appliance, String> {
 	private static final long serialVersionUID = 1L;
 	private static WasherList washerList;
 
@@ -27,16 +27,5 @@ public class WasherList extends ItemList<Washer, String> {
 		} else {
 			return washerList;
 		}
-	}
-
-	/**
-	 * Inserts a washer into the collection.
-	 * 
-	 * @param washer
-	 *            the washer to be inserted
-	 * @return true if the washer could be inserted
-	 */
-	public boolean insertWasher(Washer washer) {
-		return super.add(washer);
 	}
 }

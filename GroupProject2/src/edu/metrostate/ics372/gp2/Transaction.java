@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 /**
  * The Transaction class is used to manage a single transaction for a washer.
  * 
- * ICS372-01 - Group Project #1
+ * ICS372-01 - Group Project #2
  * 
  * @author Shannon Fisher
  * 
