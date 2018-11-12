@@ -19,7 +19,7 @@ import java.util.Scanner;
  * 
  * ICS372-01 - Group Project #2
  * 
- * @author Shannon Fisher
+ * @author Shannon Fisher, Mihail Miltchev
  * 
  */
 public class Store implements Serializable {
@@ -171,18 +171,18 @@ public class Store implements Serializable {
 		return result;
 	}
 
-	public boolean purchaseWasher(String id, String brand, String model, int quantity) {
-		Washer washer = store.searchAppliances(brand + model);
+	public boolean purchaseAppliance(String id, String brand, String model, int quantity) {
+		Appliance appliance = store.searchAppliances(brand + model);
 		Customer customer = null;
 		boolean purchase = customerList.findUser(id, customerList);
 		Iterator<Customer> customers = customerList.iterator();
 		
 		if (purchase) {
-			if (washer == null) {
+			if (appliance == null) {
 				System.out.println("No such washer exists.");
 				return false;
 			} else {
-				purchase = inventory.findWasher(brand, model, quantity);
+				purchase = inventory.findAppliance(brand, model, quantity);
 			}
 			while (customers.hasNext()) {
 				Customer nextCustomer = customers.next();
@@ -193,23 +193,23 @@ public class Store implements Serializable {
 			if (purchase) {
 				int count = quantity;
 				while (count != 0) {
-					Iterator<Washer> washers = applianceList.iterator();
-					while (washers.hasNext()) {
-						Washer nextWasher = washers.next();
-						if (nextWasher.matches(washer.getBrand() + washer.getModel())) {
-							customer.purchase(nextWasher);
-							totalSales += nextWasher.getPrice();
+					Iterator<Appliance> appliances = applianceList.iterator();
+					while (appliances.hasNext()) {
+						Appliance nextAppliance = appliances.next();
+						if (nextAppliance.matches(appliance.getBrand() + appliance.getModel())) {
+							customer.purchase(nextAppliance);
+							totalSales += nextAppliance.getPrice();
 						}
 					}
 					count--;
 				}	
-				inventory.updateQuantity(washer.getBrand(), washer.getModel(), quantity);
+				inventory.updateQuantity(appliance.getBrand(), appliance.getModel(), quantity);
 			} else {
-				if (addToBackOrder(customer, washer, quantity)) {
+				/*if (addToBackOrder(customer, appliance, quantity)) {
 					System.out.println("Not enough of " + brand + " " + model + " in stock. Back order placed for " + quantity + " units.");
 				} else {
 					System.out.println("The back order could not be placed.");
-				}
+				}*/
 
 			}
 		} else {
@@ -243,6 +243,7 @@ public class Store implements Serializable {
 			displayApplianceChoices();
 			Scanner input = new Scanner(System.in);
 			int value = input.nextInt();
+			input.nextLine();
 			input.close();
 			if (value >= TYPE_ALL && value <= TYPE_FURNACE) {
 				output = handlePrinting(value);
@@ -289,15 +290,15 @@ public class Store implements Serializable {
 			Customer customer = backOrder.getCustomer();
 			Washer washer = backOrder.getWasher();
 			int quantity = backOrder.getQuantity();
-			boolean purchase = inventory.findWasher(washer.getBrand(), washer.getModel(), quantity);
+			boolean purchase = inventory.findAppliance(washer.getBrand(), washer.getModel(), quantity);
 			
 			if (purchase) {
 				double sale = 0.0;
 				int count = quantity;
 				while (count != 0) {
-					Iterator<Washer> washers = applianceList.iterator();
-					while (washers.hasNext()) {
-						Washer temp = washers.next();
+					Iterator<Appliance> appliances = applianceList.iterator();
+					while (appliances.hasNext()) {
+						Appliance temp = appliances.next();
 						if (temp.matches(washer.getBrand() + washer.getModel())) {
 							customer.purchase(temp);
 							totalSales += temp.getPrice();
@@ -319,7 +320,7 @@ public class Store implements Serializable {
 	 *            ID of the washer
 	 * @return true if the washer is in the washer collection
 	 */
-	public Washer searchAppliances(String washerId) {
+	public Appliance searchAppliances(String washerId) {
 		return applianceList.search(washerId);
 	}
 

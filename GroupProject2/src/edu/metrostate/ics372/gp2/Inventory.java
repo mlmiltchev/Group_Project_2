@@ -55,16 +55,16 @@ public class Inventory extends ItemList<Appliance, String> {
 	 * @param quantity
 	 *            quantity to remove
 	 */
-	/*public void updateQuantity(String brand, String model, int quantity) {
-		Iterator<Washer> washers = this.iterator();
-		while (washers.hasNext()) {
-			Washer washer = washers.next();
-			if (washer.matches(brand + model) && (quantity != 0)) {
-				washers.remove();
+	public void updateQuantity(String brand, String model, int quantity) {
+		Iterator<Appliance> appliances = this.iterator();
+		while (appliances.hasNext()) {
+			Appliance appliance = appliances.next();
+			if (appliance.matches(brand + model) && (quantity != 0)) {
+				appliances.remove();
 				quantity--;
 			}
 		}
-	}*/
+	}
 
 	/**
 	 * Finds a washer from the collection.
@@ -77,13 +77,13 @@ public class Inventory extends ItemList<Appliance, String> {
 	 *            quantity desired to purchase
 	 * @return true if the washer was found with quantity met
 	 */
-	/*public boolean findWasher(String brand, String model, int quantity) {
-		Iterator<Washer> washers = this.iterator();
+	public boolean findAppliance(String brand, String model, int quantity) {
+		Iterator<Appliance> appliances = this.iterator();
 		boolean found = false;
 		int count = 0;
-		while (washers.hasNext()) {
-			Washer washer = washers.next();
-			if (washer.matches(brand + model)) {
+		while (appliances.hasNext()) {
+			Appliance item = appliances.next();
+			if (item.matches(brand + model)) {
 				count++;
 			}
 		}
@@ -92,7 +92,7 @@ public class Inventory extends ItemList<Appliance, String> {
 			found = true;
 		}
 		return found;
-	}*/
+	}
 
 	/**
 	 * Returns all washers and their quantities currently in the inventory.

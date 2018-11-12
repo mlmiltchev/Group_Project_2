@@ -282,7 +282,7 @@ public class UserInterface {
 				System.out.println("Could not add customer.");
 			}
 			System.out.println(customer);
-		} while (yesOrNo("Would you like to add another Customer?"));
+		} while (yesOrNo("Would you like to add another customer?"));
 	}
 
 	/**
@@ -351,13 +351,13 @@ public class UserInterface {
 			String brand = getToken("Enter washer brand: ");
 			String model = getToken("Enter washer model: ");
 			int quantity = getInteger("Enter quantity to purchase: ");
-			boolean purchased = store.purchaseWasher(id, brand, model, quantity);
+			boolean purchased = store.purchaseAppliance(id, brand, model, quantity);
 			if (purchased) {
 				System.out.println("Purchased " + quantity + " of " + brand + " " + model + " for customer " + id);
 			} else {
 				System.out.println("Purchase unsuccessful.");
 			}
-		} while (yesOrNo("Make another Purchase?"));
+		} while (yesOrNo("Make another purchase?"));
 	}
 
 	/**

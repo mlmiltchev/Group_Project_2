@@ -19,7 +19,7 @@ public class Customer implements Serializable, IMatchable<String> {
 	private String name;
 	private String phoneNumber;
 	private String id;
-	private List<Washer> washersSold = new LinkedList<Washer>();
+	private List<Appliance> appliancesSold = new LinkedList<Appliance>();
 	private List<BackOrder> washersOnBackOrder = new LinkedList<BackOrder>();
 	private List<Transaction> transactions = new LinkedList<Transaction>();
 
@@ -87,13 +87,13 @@ public class Customer implements Serializable, IMatchable<String> {
 	/**
 	 * Stores the washer as purchased for this customer.
 	 * 
-	 * @param washer
+	 * @param nextAppliance
 	 *            the washer to be sold
 	 * @return true if the washer could be marked as sold
 	 */
-	public boolean purchase(Washer washer) {
-		if (washersSold.add(washer)) {
-			transactions.add(new Transaction("Washer sold: ", washer.getId()));
+	public boolean purchase(Appliance nextAppliance) {
+		if (appliancesSold.add(nextAppliance)) {
+			transactions.add(new Transaction("Washer sold: ", nextAppliance.getId()));
 			return true;
 		}
 		return false;
