@@ -179,9 +179,14 @@ public class UserInterface {
 			try {
 				String item = getToken(prompt);
 				Integer number = Integer.valueOf(item);
+				if(number <=0 || number >= 7) {
+					throw new IndexOutOfBoundsException();
+				}
 				return number.intValue();
 			} catch (NumberFormatException nfe) {
 				System.out.println("Please input a number.");
+			}catch(IndexOutOfBoundsException oob) {
+				System.out.println("Not a valid selection.");
 			}
 		} while (true);
 	}
@@ -254,7 +259,7 @@ public class UserInterface {
 		StringBuilder displayApplianceString = new StringBuilder();		
 		displayApplianceString.append("\n\t[" + TYPE_DISHWASHER + "] Dishwasher.");									
 		displayApplianceString.append("\n\t[" + TYPE_DRYER + "] Dryer.");
-		displayApplianceString.append("\n\t[" + TYPE_FRIDGE + "] Refridgerator.");
+		displayApplianceString.append("\n\t[" + TYPE_FRIDGE + "] Refrigerator.");
 		displayApplianceString.append("\n\t[" + TYPE_FURNACE + "] Furnace.");
 		displayApplianceString.append("\n\t[" + TYPE_RANGE + "] Kitchen range.");
 		displayApplianceString.append("\n\t[" + TYPE_WASHER + "] Washer.");

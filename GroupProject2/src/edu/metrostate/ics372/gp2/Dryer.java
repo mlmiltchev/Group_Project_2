@@ -8,7 +8,7 @@ package edu.metrostate.ics372.gp2;
  * @author Andrew Siegfried
  * 
  */
-public class Dryer extends Appliance {
+public class Dryer extends ClothesAppliance {
 	private static final long serialVersionUID = 1L;
 	private static final int TYPE_DRYER = 2;
 

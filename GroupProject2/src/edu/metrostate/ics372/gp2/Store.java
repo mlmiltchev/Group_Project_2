@@ -123,7 +123,7 @@ public class Store implements Serializable {
 	 */
 	public Appliance addAppliance(int type, String brand, String model, double price) {		
 		switch (type) {
-			case TYPE_WASHER:
+			case TYPE_WASHER:				
 				Washer washer = new Washer(brand, model, price);
 				if (washerList.add(washer)) {
 					appliance = washer;
@@ -150,7 +150,7 @@ public class Store implements Serializable {
 			case TYPE_FRIDGE:
 				Fridge fridge = new Fridge(brand, model, price);
 				if (fridgeList.add(fridge)) {
-					item = fridge;
+					appliance = fridge;
 				}
 				break;
 			case TYPE_FURNACE:

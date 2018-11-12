@@ -8,7 +8,7 @@ package edu.metrostate.ics372.gp2;
  * @author Shannon Fisher, Andrew Siegfried
  * 
  */
-public class Washer extends Appliance {
+public class Washer extends ClothesAppliance{
 	private static final long serialVersionUID = 1L;
 	private static final int TYPE_WASHER = 6;
 
