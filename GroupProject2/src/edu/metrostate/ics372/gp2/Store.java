@@ -26,12 +26,7 @@ public class Store implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Inventory inventory;
 	private CustomerList customerList;
-	private WasherList washerList;
-	private DishwasherList dishwasherList;
-	private DryerList dryerList;
-	private FridgeList fridgeList;
-	private FurnaceList furnaceList;
-	private RangeList rangeList;
+	private ApplianceList applianceList;
 	private BackOrderList backOrderList;
 	private static Store store;
 	private double totalSales = 0.0;
@@ -52,12 +47,7 @@ public class Store implements Serializable {
 	private Store() {
 		inventory = Inventory.instance();
 		customerList = CustomerList.instance();
-		washerList = WasherList.instance();
-		dishwasherList = DishwasherList.instance();
-		dryerList = DryerList.instance();
-		fridgeList = FridgeList.instance();
-		furnaceList = FurnaceList.instance();
-		rangeList = RangeList.instance();
+		applianceList = ApplianceList.instance();
 		backOrderList = BackOrderList.instance();
 		totalSales = 0.0;
 	}
@@ -125,37 +115,37 @@ public class Store implements Serializable {
 		switch (type) {
 			case TYPE_WASHER:				
 				Washer washer = new Washer(brand, model, price);
-				if (washerList.add(washer)) {
+				if (applianceList.add(washer)) {
 					appliance = washer;
 				}
 				break;
 			case TYPE_DRYER:
 				Dryer dryer = new Dryer(brand, model, price);
-				if (dryerList.add(dryer)) {
+				if (applianceList.add(dryer)) {
 					appliance = dryer;
 				}
 				break;
 			case TYPE_RANGE:
 				Range range = new Range(brand, model, price);
-				if (rangeList.add(range)) {
+				if (applianceList.add(range)) {
 					appliance = range;
 				}
 				break;
 			case TYPE_DISHWASHER:
 				Dishwasher dishwasher = new Dishwasher(brand, model, price);
-				if (dishwasherList.add(dishwasher)) {
+				if (applianceList.add(dishwasher)) {
 					appliance = dishwasher;
 				}
 				break;
 			case TYPE_FRIDGE:
 				Fridge fridge = new Fridge(brand, model, price);
-				if (fridgeList.add(fridge)) {
+				if (applianceList.add(fridge)) {
 					appliance = fridge;
 				}
 				break;
 			case TYPE_FURNACE:
 				Furnace furnace = new Furnace(brand, model, price);
-				if (furnaceList.add(furnace)) {
+				if (applianceList.add(furnace)) {
 					appliance = furnace;
 				}
 				break;
@@ -203,7 +193,7 @@ public class Store implements Serializable {
 			if (purchase) {
 				int count = quantity;
 				while (count != 0) {
-					Iterator<Washer> washers = washerList.iterator();
+					Iterator<Washer> washers = applianceList.iterator();
 					while (washers.hasNext()) {
 						Washer nextWasher = washers.next();
 						if (nextWasher.matches(washer.getBrand() + washer.getModel())) {
@@ -287,51 +277,13 @@ public class Store implements Serializable {
 		Iterator<Appliance> appliances = null;
 		switch (type) {
 			case TYPE_ALL:
-				appliances = combineIterators();
+				appliances = applianceList.iterator();
 				break;
-			case TYPE_WASHER:
-				appliances = washerList.iterator();
-				break;
-			case TYPE_DRYER:
-				appliances = dryerList.iterator();
-				break;
-			case TYPE_RANGE:
-				appliances = rangeList.iterator();
-				break;
-			case TYPE_DISHWASHER:
-				appliances = dishwasherList.iterator();
-				break;
-			case TYPE_FRIDGE:
-				appliances = fridgeList.iterator();
-				break;
-			case TYPE_FURNACE:
-				appliances = furnaceList.iterator();
+			default:
+				appliances = applianceList.getIterator(type);
 				break;
 		}
 		return appliances;
-	}
-
-	private Iterator<Appliance> combineIterators() {
-		ArrayList<Appliance> list = new ArrayList<Appliance>(); 
-		while (washerList.iterator().hasNext()) {
-			list.add(washerList.iterator().next());
-		}
-		while (dryerList.iterator().hasNext()) {
-			list.add(washerList.iterator().next());
-		}
-		while (rangeList.iterator().hasNext()) {
-			list.add(washerList.iterator().next());
-		}
-		while (dishwasherList.iterator().hasNext()) {
-			list.add(washerList.iterator().next());
-		}
-		while (fridgeList.iterator().hasNext()) {
-			list.add(washerList.iterator().next());
-		}
-		while (fridgeList.iterator().hasNext()) {
-			list.add(furnaceList.iterator().next());
-		}
-		return list.iterator();
 	}
 
 	/**
@@ -351,7 +303,7 @@ public class Store implements Serializable {
 				double sale = 0.0;
 				int count = quantity;
 				while (count != 0) {
-					Iterator<Washer> washers = washerList.iterator();
+					Iterator<Washer> washers = applianceList.iterator();
 					while (washers.hasNext()) {
 						Washer temp = washers.next();
 						if (temp.matches(washer.getBrand() + washer.getModel())) {
@@ -376,7 +328,7 @@ public class Store implements Serializable {
 	 * @return true if the washer is in the washer collection
 	 */
 	public Washer searchWashers(String washerId) {
-		return washerList.search(washerId);
+		return applianceList.search(washerId);
 	}
 
 	/**

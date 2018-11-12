@@ -247,7 +247,7 @@ public class UserInterface {
 		System.out.println("[" + DISPLAY_TOTAL + "] Display total sales.");
 		System.out.println("[" + ENROLL_REPAIR_PLAN + "] Enroll customer in repair plan.");
 		System.out.println("[" + WITHDRAW_REPAIR_PLAN + "] Withdraw customer from repair plan.");
-		System.out.println("[" + BILL_REPAIR_PLAN + "] Bill customer's with repair plan.");
+		System.out.println("[" + BILL_REPAIR_PLAN + "] Bill repair plan customers.");
 		System.out.println("[" + LIST_REPAIR_PLAN_CUSTOMERS + "] Display repair plan customers.");
 		System.out.println("[" + LIST_BACKORDERS + "] Display backorders.");
 		System.out.println("[" + SAVE + "] Save data.");
@@ -315,8 +315,8 @@ public class UserInterface {
 	public void addToInventory() {
 		do {
 			int quantity = 0;
-			String brand = getToken("Enter washer brand: ");
-			String model = getToken("Enter washer model: ");
+			String brand = getToken("Enter appliance brand: ");
+			String model = getToken("Enter appliance model: ");
 			Washer washer = store.searchWashers(brand + model);
 			if (washer == null) {
 				System.out.println("No such washer exists.");

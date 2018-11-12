@@ -1,5 +1,7 @@
 package edu.metrostate.ics372.gp2;
 
+import java.util.Iterator;
+
 /**
  * The WasherList class is used to maintain a collection of washers.
  * 
@@ -8,12 +10,12 @@ package edu.metrostate.ics372.gp2;
  * @author Shannon Fisher
  * 
  */
-public class WasherList extends ItemList<Appliance, String> {
+public class ApplianceList extends ItemList<Appliance, String> {
 	private static final long serialVersionUID = 1L;
-	private static WasherList washerList;
+	private static ApplianceList applianceList;
 
 	// Private constructor for singleton pattern.
-	private WasherList() {
+	private ApplianceList() {
 	}
 
 	/**
@@ -21,11 +23,15 @@ public class WasherList extends ItemList<Appliance, String> {
 	 * 
 	 * @return the singleton object
 	 */
-	public static WasherList instance() {
-		if (washerList == null) {
-			return (washerList = new WasherList());
+	public static ApplianceList instance() {
+		if (applianceList == null) {
+			return (applianceList = new ApplianceList());
 		} else {
-			return washerList;
+			return applianceList;
 		}
+	}
+	
+	public Iterator<Appliance> getIterator(int type) {
+		return super.iterator();
 	}
 }
