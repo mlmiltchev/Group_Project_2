@@ -1,7 +1,6 @@
 package edu.metrostate.ics372.gp2;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Iterator;
@@ -27,13 +26,7 @@ public class Appliance implements Serializable, IMatchable<String> {
 	private double price;
 	private int type;
 	private List<BackOrder> backOrders = new LinkedList<BackOrder>();
-	private static final int TYPE_DISHWASHER = 1;
-	private static final int TYPE_DRYER = 2;
-	private static final int TYPE_FRIDGE = 3;
-	private static final int TYPE_FURNACE = 4;
-	private static final int TYPE_RANGE = 5;
-	private static final int TYPE_WASHER = 6;
-	
+
 	public BufferedReader readIn = new BufferedReader(new InputStreamReader(System.in));
 
 	/**
@@ -98,20 +91,20 @@ public class Appliance implements Serializable, IMatchable<String> {
 	public double getPrice() {
 		return price;
 	}
-	
+
 	/**
 	 * Getter for the appliance's price.
 	 * 
 	 * @return appliance price
 	 */
 	private String getTypeID() {
-		Map<Integer,String> typeIDs = new LinkedHashMap<Integer,String>();
-		typeIDs.put(TYPE_DISHWASHER, "Dishwasher");
-		typeIDs.put(TYPE_DRYER, "Dryer");
-		typeIDs.put(TYPE_FRIDGE, "Refrigerator");
-		typeIDs.put(TYPE_FURNACE, "Furnace");
-		typeIDs.put(TYPE_RANGE, "Kitchen Range");
-		typeIDs.put(TYPE_WASHER, "Washer");
+		Map<Integer, String> typeIDs = new LinkedHashMap<Integer, String>();
+		typeIDs.put(Constants.TYPE_DISHWASHER, "Dishwasher");
+		typeIDs.put(Constants.TYPE_DRYER, "Dryer");
+		typeIDs.put(Constants.TYPE_FRIDGE, "Refrigerator");
+		typeIDs.put(Constants.TYPE_FURNACE, "Furnace");
+		typeIDs.put(Constants.TYPE_RANGE, "Kitchen Range");
+		typeIDs.put(Constants.TYPE_WASHER, "Washer");
 		return typeIDs.get(getType());
 	}
 
@@ -143,23 +136,25 @@ public class Appliance implements Serializable, IMatchable<String> {
 		}
 		return false;
 	}
+
 	/**
 	 * Gets attribute from user
 	 */
 	public String getAttribute(String inputText) {
 		System.out.print(inputText);
 		String attribute = "";
-			try {
-				attribute = readIn.readLine();	
-				if(attribute.length()<1) {
-					throw new Exception();
-				}
-			} catch (Exception e) {
-				System.out.println("Invalid Input. Try Again.");
-				getAttribute(inputText);
-			}	
-			return attribute;		
+		try {
+			attribute = readIn.readLine();
+			if (attribute.length() < 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			System.out.println("Invalid Input. Try Again.");
+			getAttribute(inputText);
+		}
+		return attribute;
 	}
+
 	/**
 	 * Returns a valid back order.
 	 * 
@@ -211,6 +206,7 @@ public class Appliance implements Serializable, IMatchable<String> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Type: %s, Brand: \'%s\', Model: \'%s\', Price: $%.2f", getTypeID().toUpperCase(), getBrand(), getModel(), getPrice());		
+		return String.format("Type: %s, Brand: \'%s\', Model: \'%s\', Price: $%.2f", getTypeID().toUpperCase(),
+				getBrand(), getModel(), getPrice());
 	}
 }

@@ -10,8 +10,6 @@ package edu.metrostate.ics372.gp2;
  */
 public class Fridge extends Appliance {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_FRIDGE = 3;
-	
 	int capacity;
 
 	/**
@@ -25,25 +23,25 @@ public class Fridge extends Appliance {
 	 *            the washer's price
 	 */
 	public Fridge(String brand, String model, double price) {
-		super(brand,model,price,TYPE_FRIDGE);
+		super(brand, model, price, Constants.TYPE_FRIDGE);
 		setCapacity();
 	}
-	
+
 	private void setCapacity() {
 		try {
-			this.capacity = Integer.parseInt(getAttribute("Enter Refrigerator Capacity in Liters:\n"));			
+			this.capacity = Integer.parseInt(getAttribute("Enter Refrigerator Capacity in Liters:\n"));
 		} catch (Exception e) {
 			System.out.println("Invalid input, please enter a Capacity.");
 			setCapacity();
-		}	
+		}
 	}
-	
+
 	public int getCapacity() {
 		return capacity;
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("%s, Capacity: %d",super.toString(), getCapacity());	
+		return String.format("%s, Capacity: %d", super.toString(), getCapacity());
 	}
 }

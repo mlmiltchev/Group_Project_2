@@ -10,7 +10,6 @@ package edu.metrostate.ics372.gp2;
  */
 public class Dryer extends ClothesAppliance {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_DRYER = 2;
 
 	/**
 	 * Represents a single washer.
@@ -23,6 +22,6 @@ public class Dryer extends ClothesAppliance {
 	 *            the washer's price
 	 */
 	public Dryer(String brand, String model, double price) {
-		super(brand,model,price,TYPE_DRYER);
+		super(brand, model, price, Constants.TYPE_DRYER);
 	}
 }

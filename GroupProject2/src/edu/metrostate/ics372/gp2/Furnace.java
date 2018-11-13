@@ -10,7 +10,6 @@ package edu.metrostate.ics372.gp2;
  */
 public class Furnace extends Appliance {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_FURNACE = 4;
 	private int maxHeatOutput;
 
 	/**
@@ -24,28 +23,26 @@ public class Furnace extends Appliance {
 	 *            the washer's price
 	 */
 	public Furnace(String brand, String model, double price) {
-		super(brand,model,price,TYPE_FURNACE);
+		super(brand, model, price, Constants.TYPE_FURNACE);
 		setMaxHeatOutput();
 	}
-	
-	private void setMaxHeatOutput() {	
+
+	private void setMaxHeatOutput() {
 		try {
-			this.maxHeatOutput = Integer.parseInt(getAttribute("Enter Maximum Heating Output in BTU:\n"));			
+			this.maxHeatOutput = Integer.parseInt(getAttribute("Enter Maximum Heating Output in BTU:\n"));
 		} catch (Exception e) {
 			System.out.println("Invalid input, please enter a Maximum Heat Output in BTU.");
 			setMaxHeatOutput();
-		}			
+		}
 	}
-	
+
 	public Integer getMaxHeatOutput() {
 		return maxHeatOutput;
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("%s, BTU: %d",super.toString(),getMaxHeatOutput());	
+		return String.format("%s, BTU: %d", super.toString(), getMaxHeatOutput());
 	}
-	
 
-	
 }

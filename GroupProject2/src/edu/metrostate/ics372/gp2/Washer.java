@@ -8,9 +8,8 @@ package edu.metrostate.ics372.gp2;
  * @author Shannon Fisher, Andrew Siegfried
  * 
  */
-public class Washer extends ClothesAppliance{
+public class Washer extends ClothesAppliance {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_WASHER = 6;
 
 	/**
 	 * Represents a single washer.
@@ -23,6 +22,6 @@ public class Washer extends ClothesAppliance{
 	 *            the washer's price
 	 */
 	public Washer(String brand, String model, double price) {
-		super(brand,model,price,TYPE_WASHER);
+		super(brand, model, price, Constants.TYPE_WASHER);
 	}
 }

@@ -10,7 +10,6 @@ package edu.metrostate.ics372.gp2;
  */
 public class Range extends Appliance {
 	private static final long serialVersionUID = 1L;
-	private static final int TYPE_RANGE = 5;
 
 	/**
 	 * Represents a single washer.
@@ -23,6 +22,6 @@ public class Range extends Appliance {
 	 *            the washer's price
 	 */
 	public Range(String brand, String model, double price) {
-		super(brand,model,price,TYPE_RANGE);
+		super(brand, model, price, Constants.TYPE_RANGE);
 	}
 }
