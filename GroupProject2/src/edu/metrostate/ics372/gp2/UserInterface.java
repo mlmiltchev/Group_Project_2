@@ -3,6 +3,7 @@ package edu.metrostate.ics372.gp2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -179,7 +180,7 @@ public class UserInterface {
 			try {
 				String item = getToken(prompt);
 				Integer number = Integer.valueOf(item);
-				if(number <=0 || number >= 7) {
+				if(number < 0) {
 					throw new IndexOutOfBoundsException();
 				}
 				return number.intValue();
@@ -257,12 +258,12 @@ public class UserInterface {
 	
 	public String displayApplianceChoices() {
 		StringBuilder displayApplianceString = new StringBuilder();		
-		displayApplianceString.append("\n\t[" + TYPE_DISHWASHER + "] Dishwasher.");									
-		displayApplianceString.append("\n\t[" + TYPE_DRYER + "] Dryer.");
-		displayApplianceString.append("\n\t[" + TYPE_FRIDGE + "] Refrigerator.");
-		displayApplianceString.append("\n\t[" + TYPE_FURNACE + "] Furnace.");
-		displayApplianceString.append("\n\t[" + TYPE_RANGE + "] Kitchen range.");
-		displayApplianceString.append("\n\t[" + TYPE_WASHER + "] Washer.");
+		displayApplianceString.append("\n[" + TYPE_DISHWASHER + "] Dishwasher.");									
+		displayApplianceString.append("\n[" + TYPE_DRYER + "] Dryer.");
+		displayApplianceString.append("\n[" + TYPE_FRIDGE + "] Refrigerator.");
+		displayApplianceString.append("\n[" + TYPE_FURNACE + "] Furnace.");
+		displayApplianceString.append("\n[" + TYPE_RANGE + "] Kitchen range.");
+		displayApplianceString.append("\n[" + TYPE_WASHER + "] Washer.");
 		return displayApplianceString.toString();
 	}
 	
@@ -374,7 +375,19 @@ public class UserInterface {
 	 * 
 	 */
 	public void listAppliances() {
-		System.out.println(store.listAppliances());
+		try {
+			System.out.println("Enter a number between 0 and 6 as explained below: \n");
+			System.out.print("[" + Constants.TYPE_ALL + "] List all appliances.");
+			System.out.println(displayApplianceChoices());
+			int value = getInteger("");
+			if (value >= Constants.TYPE_ALL && value <= Constants.TYPE_WASHER) {
+				System.out.println(store.listAppliances(value));
+			} else {
+				throw new NumberFormatException();
+			}
+		} catch (NumberFormatException nfe) {
+			System.out.println("Invalid entry please try again.");
+		}
 	}
 
 	/**

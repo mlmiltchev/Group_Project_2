@@ -9,8 +9,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
-
 /**
  * The Store class is used for calling the primary business functions of the
  * application. It keeps track of all customers, back orders, and washers in the
@@ -55,21 +53,6 @@ public class Store implements Serializable {
 		} else {
 			return store;
 		}
-	}
-
-	/**
-	 * Displays the print screen.
-	 * 
-	 */
-	public void displayApplianceChoices() {
-		System.out.println("Enter a number between 0 and 6 as explained below: \n");
-		System.out.println("[" + Constants.TYPE_ALL + "] List all appliances.");
-		System.out.println("[" + Constants.TYPE_DISHWASHER + "] List all dishwashers.");
-		System.out.println("[" + Constants.TYPE_DRYER + "] List all dryers.");
-		System.out.println("[" + Constants.TYPE_FRIDGE + "] List all refrigerators.");
-		System.out.println("[" + Constants.TYPE_FURNACE + "] List all furnaces.");
-		System.out.println("[" + Constants.TYPE_RANGE + "] List all kitchen ranges.");
-		System.out.println("[" + Constants.TYPE_WASHER + "] List all washers.");
 	}
 
 	/**
@@ -231,26 +214,7 @@ public class Store implements Serializable {
 	 * 
 	 * @return a list of all washers in the inventory
 	 */
-	public String listAppliances() {
-		String output = "";
-		try {
-			displayApplianceChoices();
-			Scanner input = new Scanner(System.in);
-			int value = input.nextInt();
-			input.nextLine();
-			input.close();
-			if (value >= Constants.TYPE_ALL && value <= Constants.TYPE_FURNACE) {
-				output = handlePrinting(value);
-			} else {
-				throw new NumberFormatException();
-			}
-		} catch (NumberFormatException nfe) {
-			return "Invalid entry please try again.";
-		}
-		return output;
-	}
-
-	public String handlePrinting(int type) {
+	public String listAppliances(int type) {
 		Iterator<Appliance> appliances = inventory.getAllAppliances(type);
 		Iterator<Appliance> applianceLog = getListIterator(type);
 		StringBuilder stringBuilder = new StringBuilder();
