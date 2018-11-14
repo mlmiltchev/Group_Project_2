@@ -216,7 +216,7 @@ public class Store implements Serializable {
 	 */
 	public String listAppliances(int type) {
 		Iterator<Appliance> appliances = inventory.getAllAppliances(type);
-		Iterator<Appliance> applianceLog = getListIterator(type);
+		Iterator<Appliance> applianceLog = applianceList.getIterator(type);
 		StringBuilder stringBuilder = new StringBuilder();
 		Map<Appliance, Integer> applianceCount = new LinkedHashMap<Appliance, Integer>();
 		while (applianceLog.hasNext()) {
@@ -230,11 +230,6 @@ public class Store implements Serializable {
 		}
 
 		return stringBuilder.toString();
-	}
-
-	private Iterator<Appliance> getListIterator(int type) {
-		Iterator<Appliance> appliances = applianceList.getIterator(type);
-		return appliances;
 	}
 
 	/**
