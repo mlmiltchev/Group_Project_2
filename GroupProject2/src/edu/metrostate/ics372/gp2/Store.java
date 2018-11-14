@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,15 +29,7 @@ public class Store implements Serializable {
 	private BackOrderList backOrderList;
 	private static Store store;
 	private double totalSales = 0.0;
-	private static final int TYPE_ALL = 0;
-	private static final int TYPE_DISHWASHER = 1;
-	private static final int TYPE_DRYER = 2;
-	private static final int TYPE_FRIDGE = 3;
-	private static final int TYPE_FURNACE = 4;
-	private static final int TYPE_RANGE = 5;
-	private static final int TYPE_WASHER = 6;
 	private Appliance appliance;
-
 
 	/**
 	 * Private constructor using the singleton pattern. Creates the inventory,
@@ -65,20 +56,20 @@ public class Store implements Serializable {
 			return store;
 		}
 	}
-	
+
 	/**
 	 * Displays the print screen.
 	 * 
 	 */
 	public void displayApplianceChoices() {
 		System.out.println("Enter a number between 0 and 6 as explained below: \n");
-		System.out.println("[" + TYPE_ALL + "] List all appliances.");
-		System.out.println("[" + TYPE_DISHWASHER + "] List all dishwashers.");
-		System.out.println("[" + TYPE_DRYER + "] List all dryers.");
-		System.out.println("[" + TYPE_FRIDGE + "] List all refridgerators.");
-		System.out.println("[" + TYPE_FURNACE + "] List all furnaces.");
-		System.out.println("[" + TYPE_RANGE + "] List all kitchen ranges.");
-		System.out.println("[" + TYPE_WASHER + "] List all washers.");
+		System.out.println("[" + Constants.TYPE_ALL + "] List all appliances.");
+		System.out.println("[" + Constants.TYPE_DISHWASHER + "] List all dishwashers.");
+		System.out.println("[" + Constants.TYPE_DRYER + "] List all dryers.");
+		System.out.println("[" + Constants.TYPE_FRIDGE + "] List all refrigerators.");
+		System.out.println("[" + Constants.TYPE_FURNACE + "] List all furnaces.");
+		System.out.println("[" + Constants.TYPE_RANGE + "] List all kitchen ranges.");
+		System.out.println("[" + Constants.TYPE_WASHER + "] List all washers.");
 	}
 
 	/**
@@ -111,44 +102,44 @@ public class Store implements Serializable {
 	 *            washer price
 	 * @return true if the washer model and brand could be added
 	 */
-	public Appliance addAppliance(int type, String brand, String model, double price) {		
+	public Appliance addAppliance(int type, String brand, String model, double price) {
 		switch (type) {
-			case TYPE_WASHER:				
-				Washer washer = new Washer(brand, model, price);
-				if (applianceList.add(washer)) {
-					appliance = washer;
-				}
-				break;
-			case TYPE_DRYER:
-				Dryer dryer = new Dryer(brand, model, price);
-				if (applianceList.add(dryer)) {
-					appliance = dryer;
-				}
-				break;
-			case TYPE_RANGE:
-				Range range = new Range(brand, model, price);
-				if (applianceList.add(range)) {
-					appliance = range;
-				}
-				break;
-			case TYPE_DISHWASHER:
-				Dishwasher dishwasher = new Dishwasher(brand, model, price);
-				if (applianceList.add(dishwasher)) {
-					appliance = dishwasher;
-				}
-				break;
-			case TYPE_FRIDGE:
-				Fridge fridge = new Fridge(brand, model, price);
-				if (applianceList.add(fridge)) {
-					appliance = fridge;
-				}
-				break;
-			case TYPE_FURNACE:
-				Furnace furnace = new Furnace(brand, model, price);
-				if (applianceList.add(furnace)) {
-					appliance = furnace;
-				}
-				break;
+		case Constants.TYPE_WASHER:
+			Washer washer = new Washer(brand, model, price);
+			if (applianceList.add(washer)) {
+				appliance = washer;
+			}
+			break;
+		case Constants.TYPE_DRYER:
+			Dryer dryer = new Dryer(brand, model, price);
+			if (applianceList.add(dryer)) {
+				appliance = dryer;
+			}
+			break;
+		case Constants.TYPE_RANGE:
+			Range range = new Range(brand, model, price);
+			if (applianceList.add(range)) {
+				appliance = range;
+			}
+			break;
+		case Constants.TYPE_DISHWASHER:
+			Dishwasher dishwasher = new Dishwasher(brand, model, price);
+			if (applianceList.add(dishwasher)) {
+				appliance = dishwasher;
+			}
+			break;
+		case Constants.TYPE_FRIDGE:
+			Fridge fridge = new Fridge(brand, model, price);
+			if (applianceList.add(fridge)) {
+				appliance = fridge;
+			}
+			break;
+		case Constants.TYPE_FURNACE:
+			Furnace furnace = new Furnace(brand, model, price);
+			if (applianceList.add(furnace)) {
+				appliance = furnace;
+			}
+			break;
 		}
 		return appliance;
 	}
@@ -176,7 +167,7 @@ public class Store implements Serializable {
 		Customer customer = null;
 		boolean purchase = customerList.findUser(id, customerList);
 		Iterator<Customer> customers = customerList.iterator();
-		
+
 		if (purchase) {
 			if (appliance == null) {
 				System.out.println("No such washer exists.");
@@ -202,14 +193,16 @@ public class Store implements Serializable {
 						}
 					}
 					count--;
-				}	
+				}
 				inventory.updateQuantity(appliance.getBrand(), appliance.getModel(), quantity);
 			} else {
-				/*if (addToBackOrder(customer, appliance, quantity)) {
-					System.out.println("Not enough of " + brand + " " + model + " in stock. Back order placed for " + quantity + " units.");
-				} else {
-					System.out.println("The back order could not be placed.");
-				}*/
+				/*
+				 * if (addToBackOrder(customer, appliance, quantity)) {
+				 * System.out.println("Not enough of " + brand + " " + model +
+				 * " in stock. Back order placed for " + quantity + " units.");
+				 * } else { System.out.println(
+				 * "The back order could not be placed."); }
+				 */
 
 			}
 		} else {
@@ -235,6 +228,7 @@ public class Store implements Serializable {
 
 	/**
 	 * Organizes the operations for displaying all washers in the inventory.
+	 * 
 	 * @return a list of all washers in the inventory
 	 */
 	public String listAppliances() {
@@ -245,7 +239,7 @@ public class Store implements Serializable {
 			int value = input.nextInt();
 			input.nextLine();
 			input.close();
-			if (value >= TYPE_ALL && value <= TYPE_FURNACE) {
+			if (value >= Constants.TYPE_ALL && value <= Constants.TYPE_FURNACE) {
 				output = handlePrinting(value);
 			} else {
 				throw new NumberFormatException();
@@ -255,22 +249,22 @@ public class Store implements Serializable {
 		}
 		return output;
 	}
-	
+
 	public String handlePrinting(int type) {
 		Iterator<Appliance> appliances = inventory.getAllAppliances(type);
 		Iterator<Appliance> applianceLog = getListIterator(type);
 		StringBuilder stringBuilder = new StringBuilder();
-		Map<Appliance,Integer> applianceCount = new LinkedHashMap<Appliance,Integer>();
+		Map<Appliance, Integer> applianceCount = new LinkedHashMap<Appliance, Integer>();
 		while (applianceLog.hasNext()) {
 			applianceCount.put(applianceLog.next(), 0);
 		}
 		while (appliances.hasNext()) {
 			applianceCount.merge(appliances.next(), 1, (x, y) -> x + y);
 		}
-		for (Map.Entry<Appliance,Integer> entry : applianceCount.entrySet()) {
-			stringBuilder.append(entry.getKey() + " inventory count: " + entry.getValue() +"\n");
+		for (Map.Entry<Appliance, Integer> entry : applianceCount.entrySet()) {
+			stringBuilder.append(entry.getKey() + " inventory count: " + entry.getValue() + "\n");
 		}
-		
+
 		return stringBuilder.toString();
 	}
 
@@ -284,14 +278,14 @@ public class Store implements Serializable {
 	 */
 	public void processBackOrders() {
 		Iterator<BackOrder> backOrderLog = backOrderList.iterator();
-		
+
 		while (backOrderLog.hasNext()) {
 			BackOrder backOrder = backOrderLog.next();
 			Customer customer = backOrder.getCustomer();
 			Washer washer = backOrder.getWasher();
 			int quantity = backOrder.getQuantity();
 			boolean purchase = inventory.findAppliance(washer.getBrand(), washer.getModel(), quantity);
-			
+
 			if (purchase) {
 				double sale = 0.0;
 				int count = quantity;
@@ -306,9 +300,10 @@ public class Store implements Serializable {
 						}
 					}
 					count--;
-				}	
+				}
 				inventory.updateQuantity(washer.getBrand(), washer.getModel(), quantity);
-				System.out.println("A backorder for " + customer.getId() + " purchasing " + quantity + " of " + washer+" has been processed for: " + String.format("$%.2f.%n", (float)sale));
+				System.out.println("A backorder for " + customer.getId() + " purchasing " + quantity + " of " + washer
+						+ " has been processed for: " + String.format("$%.2f.%n", (float) sale));
 			}
 		}
 	}
