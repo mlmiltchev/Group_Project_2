@@ -1,11 +1,12 @@
 package edu.metrostate.ics372.gp2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class RepairPlanLog {
+public class RepairPlanLog implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static RepairPlanLog repairPlanLog;
 	Map<Customer, ArrayList<ClothesAppliance>> log = new HashMap<>();

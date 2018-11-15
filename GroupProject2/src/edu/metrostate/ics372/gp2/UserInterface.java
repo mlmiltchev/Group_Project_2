@@ -434,7 +434,7 @@ public class UserInterface {
 	}
 	
 	public void listBackorders() {
-		System.out.println(store.listBackOrders());
+		store.listBackOrders();
 	}
 	
 	private void retrieve() {

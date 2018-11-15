@@ -218,8 +218,12 @@ public class Store implements Serializable {
 	 * 
 	 * @return a list of all backorders in the system
 	 */
-	public String listBackOrders() {
-		return backOrderList.toString();
+	public void listBackOrders() {
+		BackOrderVisitor visitor = new BackOrderVisitor();
+		Iterator<BackOrder> backOrders = backOrderList.iterator();
+		while (backOrders.hasNext()) {
+			backOrders.next().accept(visitor);
+        }
 	}
 
 	/**

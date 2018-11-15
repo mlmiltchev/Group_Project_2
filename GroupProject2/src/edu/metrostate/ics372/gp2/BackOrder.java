@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Shannon Fisher, Andrew Siegfried
  * 
  */
-public class BackOrder implements Serializable, IMatchable<String> {
+public class BackOrder implements Serializable, IMatchable<String>, Visitable {
 	private static final long serialVersionUID = 1L;
 	private Customer customer;
 	private Appliance appliance;
@@ -68,5 +68,9 @@ public class BackOrder implements Serializable, IMatchable<String> {
 		} else {
 			return false;
 		}
+	}
+
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }
