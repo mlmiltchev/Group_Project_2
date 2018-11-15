@@ -69,13 +69,4 @@ public class BackOrder implements Serializable, IMatchable<String> {
 			return false;
 		}
 	}
-	
-	/**
-	 * String form of the backorder.
-	 * 
-	 */
-	@Override
-	public String toString() {
-		return "Backorder for: " + customer + " Ordering: " + appliance + " Amount: " + quantity + ".";
-	}
 }

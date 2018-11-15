@@ -1,7 +1,5 @@
 package edu.metrostate.ics372.gp2;
 
-import java.util.Iterator;
-
 /**
  * The BackOrderList class is used to maintain a collection of back orders.
  * 
@@ -40,19 +38,5 @@ public class BackOrderList extends ItemList<BackOrder, String> {
 	 */
 	public boolean insertBackOrder(BackOrder backOrder) {
 		return super.add(backOrder);
-	}
-	
-	/**
-	 * String form of the BackOrderList.
-	 * 
-	 */
-	@Override
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		Iterator<BackOrder> backorders = this.iterator();
-		while (backorders.hasNext()) {
-			stringBuilder.append(backorders.next() + "\n");
-		}
-		return stringBuilder.toString();
 	}
 }

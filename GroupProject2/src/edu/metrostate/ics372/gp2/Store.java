@@ -212,15 +212,6 @@ public class Store implements Serializable {
 	public String listCustomers() {
 		return customerList.toString();
 	}
-	
-	/**
-	 * Organizes the operations for displaying all backorders in the system.
-	 * 
-	 * @return a list of all backorders in the system
-	 */
-	public String listBackOrders() {
-		return backOrderList.toString();
-	}
 
 	/**
 	 * Organizes the operations for displaying all appliances in the inventory.
