@@ -410,11 +410,19 @@ public class UserInterface {
 	 */
 	
 	public void enrollInRepairPlan() {
-		System.out.println("Entered enrollInRepairPlan() method.");
+		String id = getToken("Enter customer id: ");
+		String brand = getToken("Enter appliance brand: ");
+		String model = getToken("Enter appliance model: ");
+
+		store.enrollInRepairPlan(id, brand + model);
 	}
 	
 	public void withdrawFromRepairPlan() {
-		System.out.println("Entered withdrawFromRepairPlan() method.");
+		String id = getToken("Enter customer id: ");
+		String brand = getToken("Enter appliance brand: ");
+		String model = getToken("Enter appliance model: ");
+
+		store.withdrawFromRepairPlan(id, brand + model);
 	}
 	
 	public void billRepairPlanCustomers() {

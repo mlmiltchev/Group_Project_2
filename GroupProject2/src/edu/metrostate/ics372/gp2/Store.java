@@ -25,6 +25,7 @@ public class Store implements Serializable {
 	private CustomerList customerList;
 	private ApplianceList applianceList;
 	private BackOrderList backOrderList;
+	private RepairPlanLog repairPlanLog;
 	private static Store store;
 	private double totalSales = 0.0;
 	
@@ -38,6 +39,7 @@ public class Store implements Serializable {
 		customerList = CustomerList.instance();
 		applianceList = ApplianceList.instance();
 		backOrderList = BackOrderList.instance();
+		repairPlanLog = RepairPlanLog.instance();
 		totalSales = 0.0;
 	}
 
@@ -281,6 +283,16 @@ public class Store implements Serializable {
 	}
 
 	/**
+	 * Searches for a given customer.
+	 * 
+	 * @param customerId ID of the customer
+	 * @return Customer otherwise null
+	 */
+	public Customer searchCustomers(String customerId) {
+		return customerList.search(customerId);
+	}
+
+	/**
 	 * Getter method to retrieve the total sales.
 	 * 
 	 * @return the total sales
@@ -337,5 +349,13 @@ public class Store implements Serializable {
 	@Override
 	public String toString() {
 		return inventory + "\n" + customerList;
+	}
+
+	public void enrollInRepairPlan(String customerId, String applianceId) {
+		repairPlanLog.insertRepairPlan(searchCustomers(customerId), (ClothesAppliance) searchAppliances(applianceId));
+	}
+
+	public void withdrawFromRepairPlan(String customerId, String applianceId) {
+		repairPlanLog.withdrawRepairPlan(searchCustomers(customerId), (ClothesAppliance) searchAppliances(applianceId));
 	}
 }

@@ -1,6 +1,7 @@
 package edu.metrostate.ics372.gp2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -22,6 +23,8 @@ public class Customer implements Serializable, IMatchable<String> {
 	private List<Appliance> appliancesSold = new LinkedList<Appliance>();
 	private List<BackOrder> appliancesOnBackOrder = new LinkedList<BackOrder>();
 	private List<Transaction> transactions = new LinkedList<Transaction>();
+
+	private double balanceDue = 0;
 
 	/**
 	 * Represents a single customer.
@@ -97,6 +100,16 @@ public class Customer implements Serializable, IMatchable<String> {
 			return true;
 		}
 		return false;
+	}
+
+	public void bill(ArrayList<ClothesAppliance> appliances) {
+		for (ClothesAppliance appliance : appliances) {
+			balanceDue += appliance.getMonthlyRepairCost();
+		}
+	}
+
+	public double getBalanceDue() {
+		return balanceDue;
 	}
 
 	/**
