@@ -12,14 +12,14 @@ public class Dryer extends ClothesAppliance {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Represents a single washer.
+	 * Represents a single dryer.
 	 * 
 	 * @param brand
-	 *            the washer's brand
+	 *            the dryer's brand
 	 * @param model
-	 *            the washer's model
+	 *            the dryer's model
 	 * @param price
-	 *            the washer's price
+	 *            the dryer's price
 	 */
 	public Dryer(String brand, String model, double price) {
 		super(brand, model, price, Constants.TYPE_DRYER);

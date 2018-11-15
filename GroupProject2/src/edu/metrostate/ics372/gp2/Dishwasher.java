@@ -12,14 +12,14 @@ public class Dishwasher extends Appliance {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Represents a single washer.
+	 * Represents a single dishwasher.
 	 * 
 	 * @param brand
-	 *            the washer's brand
+	 *            the dishwasher's brand
 	 * @param model
-	 *            the washer's model
+	 *            the dishwasher's model
 	 * @param price
-	 *            the washer's price
+	 *            the dishwasher's price
 	 */
 	public Dishwasher(String brand, String model, double price) {
 		super(brand, model, price, Constants.TYPE_DISHWASHER);

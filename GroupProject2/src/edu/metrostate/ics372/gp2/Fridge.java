@@ -16,11 +16,11 @@ public class Fridge extends Appliance {
 	 * Represents a single washer.
 	 * 
 	 * @param brand
-	 *            the washer's brand
+	 *            the refrigerator's brand
 	 * @param model
-	 *            the washer's model
+	 *            the refrigerator's model
 	 * @param price
-	 *            the washer's price
+	 *            the refrigerator's price
 	 */
 	public Fridge(String brand, String model, double price) {
 		super(brand, model, price, Constants.TYPE_FRIDGE);

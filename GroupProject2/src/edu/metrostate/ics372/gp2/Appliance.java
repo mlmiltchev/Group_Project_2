@@ -27,7 +27,7 @@ public class Appliance implements Serializable, IMatchable<String> {
 	private int type;
 	private List<BackOrder> backOrders = new LinkedList<BackOrder>();
 
-	public BufferedReader readIn = new BufferedReader(new InputStreamReader(System.in));
+	
 
 	/**
 	 * Will represent an appliance.
@@ -141,6 +141,7 @@ public class Appliance implements Serializable, IMatchable<String> {
 	 * Gets attribute from user
 	 */
 	public String getAttribute(String inputText) {
+		BufferedReader readIn = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print(inputText);
 		String attribute = "";
 		try {

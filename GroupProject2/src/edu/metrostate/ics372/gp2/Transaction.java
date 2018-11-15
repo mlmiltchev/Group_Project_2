@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * The Transaction class is used to manage a single transaction for a washer.
+ * The Transaction class is used to manage a single transaction for a appliance.
  * 
  * ICS372-01 - Group Project #2
  * 
@@ -15,22 +15,22 @@ import java.util.GregorianCalendar;
 public class Transaction implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String type;
-	private String washerId;
+	private String applianceId;
 	private Calendar date;
 
 	/**
-	 * Creates the transaction with a given type and a washer ID. The date is
+	 * Creates the transaction with a given type and a appliance ID. The date is
 	 * the current date.
 	 * 
 	 * @param type
 	 *            the type of transaction
-	 * @param washerId
-	 *            the ID of the washer
+	 * @param applianceId
+	 *            the ID of the appliance
 	 * 
 	 */
-	public Transaction(String type, String washerId) {
+	public Transaction(String type, String applianceId) {
 		this.type = type;
-		this.washerId = washerId;
+		this.applianceId = applianceId;
 		date = new GregorianCalendar();
 		date.setTimeInMillis(System.currentTimeMillis());
 	}
@@ -45,12 +45,12 @@ public class Transaction implements Serializable {
 	}
 
 	/**
-	 * Returns the washer ID.
+	 * Returns the appliance ID.
 	 * 
-	 * @return washer ID
+	 * @return appliance ID
 	 */
-	public String getWasherId() {
-		return washerId;
+	public String getApplianceId() {
+		return applianceId;
 	}
 
 	/**
@@ -68,6 +68,6 @@ public class Transaction implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return (type + "   " + washerId);
+		return (type + "   " + applianceId);
 	}
 }

@@ -16,11 +16,11 @@ public class Furnace extends Appliance {
 	 * Represents a single washer.
 	 * 
 	 * @param brand
-	 *            the washer's brand
+	 *            the furnace's brand
 	 * @param model
-	 *            the washer's model
+	 *            the furnace's model
 	 * @param price
-	 *            the washer's price
+	 *            the furnace's price
 	 */
 	public Furnace(String brand, String model, double price) {
 		super(brand, model, price, Constants.TYPE_FURNACE);

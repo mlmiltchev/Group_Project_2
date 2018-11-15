@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 /**
  * The Store class is used for calling the primary business functions of the
- * application. It keeps track of all customers, back orders, and washers in the
+ * application. It keeps track of all customers, back orders, and appliances in the
  * inventory.
  * 
  * ICS372-01 - Group Project #2
@@ -27,11 +27,11 @@ public class Store implements Serializable {
 	private BackOrderList backOrderList;
 	private static Store store;
 	private double totalSales = 0.0;
-	private Appliance appliance;
+	
 
 	/**
 	 * Private constructor using the singleton pattern. Creates the inventory,
-	 * customer, washer, and back order collection objects.
+	 * customer, appliance, and back order collection objects.
 	 */
 	private Store() {
 		inventory = Inventory.instance();
@@ -75,17 +75,18 @@ public class Store implements Serializable {
 	}
 
 	/**
-	 * Organizes the operations for adding a washer.
+	 * Organizes the operations for adding a appliance.
 	 * 
 	 * @param brand
-	 *            washer brand
+	 *            appliance brand
 	 * @param model
-	 *            washer model
+	 *            appliance model
 	 * @param price
-	 *            washer price
-	 * @return true if the washer model and brand could be added
+	 *            appliance price
+	 * @return true if the appliance model and brand could be added
 	 */
 	public Appliance addAppliance(int type, String brand, String model, double price) {
+		Appliance appliance = null;
 		switch (type) {
 		case Constants.TYPE_WASHER:
 			Washer washer = new Washer(brand, model, price);
@@ -128,13 +129,13 @@ public class Store implements Serializable {
 	}
 
 	/**
-	 * Organizes the operations for adding a washer to the inventory.
+	 * Organizes the operations for adding a appliance to the inventory.
 	 * 
-	 * @param washer
-	 *            the washer to add to the inventory
+	 * @param appliance
+	 *            the appliance to add to the inventory
 	 * @param quantity
-	 *            the number of washers to add
-	 * @return true if the washer could be added to the inventory
+	 *            the number of appliances to add
+	 * @return true if the appliance could be added to the inventory
 	 */
 	public boolean addApplianceToInventory(String brand, String model, int quantity) {
 		Appliance item = searchAppliances(brand + model);
@@ -153,7 +154,7 @@ public class Store implements Serializable {
 
 		if (purchase) {
 			if (appliance == null) {
-				System.out.println("No such washer exists.");
+				System.out.println("No such appliance exists.");
 				return false;
 			} else {
 				purchase = inventory.findAppliance(brand, model, quantity);
@@ -179,14 +180,15 @@ public class Store implements Serializable {
 				}
 				inventory.updateQuantity(appliance.getBrand(), appliance.getModel(), quantity);
 			} else {
-				/*
-				 * if (addToBackOrder(customer, appliance, quantity)) {
-				 * System.out.println("Not enough of " + brand + " " + model +
-				 * " in stock. Back order placed for " + quantity + " units.");
-				 * } else { System.out.println(
-				 * "The back order could not be placed."); }
-				 */
-
+				if(appliance.getType() != Constants.TYPE_FURNACE) {
+					if (addToBackOrder(customer, appliance, quantity)) {
+					System.out.println("Not enough of " + brand + " " + model +" in stock. Back order placed for " + quantity + " units.");
+					} else { 
+						System.out.println("The back order could not be placed."); 
+					}
+				} else {
+					System.out.println("No furnace " + brand + " " + model + " in stock.");
+				}
 			}
 		} else {
 			System.out.println("Invalid Customer ID.");
@@ -196,8 +198,8 @@ public class Store implements Serializable {
 	}
 
 	// Private helper method to quickly add a back order.
-	private boolean addToBackOrder(Customer customer, Washer washer, int quantity) {
-		return backOrderList.insertBackOrder(new BackOrder(customer, washer, quantity));
+	private boolean addToBackOrder(Customer customer, Appliance appliance, int quantity) {
+		return backOrderList.insertBackOrder(new BackOrder(customer, appliance, quantity));
 	}
 
 	/**
@@ -210,9 +212,9 @@ public class Store implements Serializable {
 	}
 
 	/**
-	 * Organizes the operations for displaying all washers in the inventory.
+	 * Organizes the operations for displaying all appliances in the inventory.
 	 * 
-	 * @return a list of all washers in the inventory
+	 * @return a list of all appliances in the inventory
 	 */
 	public String listAppliances(int type) {
 		Iterator<Appliance> appliances = inventory.getAllAppliances(type);
@@ -241,9 +243,9 @@ public class Store implements Serializable {
 		while (backOrderLog.hasNext()) {
 			BackOrder backOrder = backOrderLog.next();
 			Customer customer = backOrder.getCustomer();
-			Washer washer = backOrder.getWasher();
+			Appliance appliance = backOrder.getAppliance();
 			int quantity = backOrder.getQuantity();
-			boolean purchase = inventory.findAppliance(washer.getBrand(), washer.getModel(), quantity);
+			boolean purchase = inventory.findAppliance(appliance.getBrand(), appliance.getModel(), quantity);
 
 			if (purchase) {
 				double sale = 0.0;
@@ -252,7 +254,7 @@ public class Store implements Serializable {
 					Iterator<Appliance> appliances = applianceList.iterator();
 					while (appliances.hasNext()) {
 						Appliance temp = appliances.next();
-						if (temp.matches(washer.getBrand() + washer.getModel())) {
+						if (temp.matches(appliance.getBrand() + appliance.getModel())) {
 							customer.purchase(temp);
 							totalSales += temp.getPrice();
 							sale += temp.getPrice();
@@ -260,22 +262,22 @@ public class Store implements Serializable {
 					}
 					count--;
 				}
-				inventory.updateQuantity(washer.getBrand(), washer.getModel(), quantity);
-				System.out.println("A backorder for " + customer.getId() + " purchasing " + quantity + " of " + washer
+				inventory.updateQuantity(appliance.getBrand(), appliance.getModel(), quantity);
+				System.out.println("A backorder for " + customer.getId() + " purchasing " + quantity + " of " + appliance
 						+ " has been processed for: " + String.format("$%.2f.%n", (float) sale));
 			}
 		}
 	}
 
 	/**
-	 * Searches for a given washer.
+	 * Searches for a given appliance.
 	 * 
-	 * @param washerId
-	 *            ID of the washer
-	 * @return true if the washer is in the washer collection
+	 * @param applianceId
+	 *            ID of the appliance
+	 * @return true if the appliance is in the appliance collection
 	 */
-	public Appliance searchAppliances(String washerId) {
-		return applianceList.search(washerId);
+	public Appliance searchAppliances(String applianceId) {
+		return applianceList.search(applianceId);
 	}
 
 	/**

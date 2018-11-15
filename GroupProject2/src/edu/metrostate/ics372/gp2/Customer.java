@@ -20,7 +20,7 @@ public class Customer implements Serializable, IMatchable<String> {
 	private String phoneNumber;
 	private String id;
 	private List<Appliance> appliancesSold = new LinkedList<Appliance>();
-	private List<BackOrder> washersOnBackOrder = new LinkedList<BackOrder>();
+	private List<BackOrder> appliancesOnBackOrder = new LinkedList<BackOrder>();
 	private List<Transaction> transactions = new LinkedList<Transaction>();
 
 	/**
@@ -85,44 +85,44 @@ public class Customer implements Serializable, IMatchable<String> {
 	}
 
 	/**
-	 * Stores the washer as purchased for this customer.
+	 * Stores the appliance as purchased for this customer.
 	 * 
 	 * @param nextAppliance
-	 *            the washer to be sold
-	 * @return true if the washer could be marked as sold
+	 *            the appliance to be sold
+	 * @return true if the appliance could be marked as sold
 	 */
 	public boolean purchase(Appliance nextAppliance) {
 		if (appliancesSold.add(nextAppliance)) {
-			transactions.add(new Transaction("Washer sold: ", nextAppliance.getId()));
+			transactions.add(new Transaction("Appliance sold: ", nextAppliance.getId()));
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * Places a back order for the washer.
+	 * Places a back order for the appliance.
 	 * 
 	 * @param hold
-	 *            the washer to be placed on back order
+	 *            the appliance to be placed on back order
 	 */
 	public void placeBackOrder(BackOrder backOrder) {
-		transactions.add(new Transaction("Back order placed: ", backOrder.getWasher().getId()));
-		washersOnBackOrder.add(backOrder);
+		transactions.add(new Transaction("Back order placed: ", backOrder.getAppliance().getId()));
+		appliancesOnBackOrder.add(backOrder);
 	}
 
 	/**
 	 * Removes a back order.
 	 * 
-	 * @param washerId
-	 *            the washer ID for removing a back order
+	 * @param applianceId
+	 *            the appliance ID for removing a back order
 	 * @return true if the back order could be removed
 	 */
-	public boolean removeBackOrder(String washerId) {
-		for (ListIterator<BackOrder> iterator = washersOnBackOrder.listIterator(); iterator.hasNext();) {
+	public boolean removeBackOrder(String applianceId) {
+		for (ListIterator<BackOrder> iterator = appliancesOnBackOrder.listIterator(); iterator.hasNext();) {
 			BackOrder backOrder = (BackOrder) iterator.next();
-			String id = backOrder.getWasher().getId();
-			if (id.equals(washerId)) {
-				transactions.add(new Transaction("Back order removed: ", backOrder.getWasher().getId()));
+			String id = backOrder.getAppliance().getId();
+			if (id.equals(applianceId)) {
+				transactions.add(new Transaction("Back order removed: ", backOrder.getAppliance().getId()));
 				iterator.remove();
 				return true;
 			}

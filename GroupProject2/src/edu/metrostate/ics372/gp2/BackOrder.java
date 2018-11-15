@@ -4,33 +4,33 @@ import java.io.Serializable;
 
 /**
  * The BackOrder class represents an order for a specific customer that has been
- * put on hold until the required quantity of washers for the sale are in the
+ * put on hold until the required quantity of appliances for the sale are in the
  * inventory.
  * 
  * ICS372-01 - Group Project #2
  * 
- * @author Shannon Fisher
+ * @author Shannon Fisher, Andrew Siegfried
  * 
  */
 public class BackOrder implements Serializable, IMatchable<String> {
 	private static final long serialVersionUID = 1L;
 	private Customer customer;
-	private Washer washer;
+	private Appliance appliance;
 	private int quantity;
 
 	/**
-	 * The customer and washer are stored, along with the requested quantity.
+	 * The customer and appliance are stored, along with the requested quantity.
 	 * 
 	 * @param customer
 	 *            the customer requesting the purchase
-	 * @param washer
-	 *            the washer that the customer wants to purchase
+	 * @param appliance
+	 *            the appliance that the customer wants to purchase
 	 * @param quantity
-	 *            the number of washers requested for purchase
+	 *            the number of appliances requested for purchase
 	 */
-	public BackOrder(Customer customer, Washer washer, int quantity) {
+	public BackOrder(Customer customer, Appliance appliance, int quantity) {
 		this.customer = customer;
-		this.washer = washer;
+		this.appliance = appliance;
 		this.quantity = quantity;
 	}
 
@@ -44,12 +44,12 @@ public class BackOrder implements Serializable, IMatchable<String> {
 	}
 
 	/**
-	 * Getter for the washer of this back order.
+	 * Getter for the appliance of this back order.
 	 * 
-	 * @return washer of this back order
+	 * @return appliance of this back order
 	 */
-	public Washer getWasher() {
-		return washer;
+	public Appliance getAppliance() {
+		return appliance;
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The Inventory class is used to maintain a collection of washers and their
+ * The Inventory class is used to maintain a collection of appliances and their
  * respective quantities currently in the inventory.
  * 
  * ICS372-01 - Group Project #2
@@ -35,23 +35,23 @@ public class Inventory extends ItemList<Appliance, String> {
 	}
 
 	/**
-	 * Inserts a washer into the collection.
+	 * Inserts a appliance into the collection.
 	 * 
-	 * @param washer
-	 *            the washer to be inserted
-	 * @return true if the washer could be inserted
+	 * @param appliance
+	 *            the appliance to be inserted
+	 * @return true if the appliance could be inserted
 	 */
 	public boolean insertAppliance(Appliance item, int quantity) {
 		return super.add(item, quantity);
 	}
 
 	/**
-	 * Updates the quantity of a washer for a specified quantity.
+	 * Updates the quantity of a appliance for a specified quantity.
 	 * 
 	 * @param brand
-	 *            the washer brand
+	 *            the appliance brand
 	 * @param model
-	 *            the washer model
+	 *            the appliance model
 	 * @param quantity
 	 *            quantity to remove
 	 */
@@ -67,15 +67,15 @@ public class Inventory extends ItemList<Appliance, String> {
 	}
 
 	/**
-	 * Finds a washer from the collection.
+	 * Finds a appliance from the collection.
 	 * 
 	 * @param brand
-	 *            the washer brand
+	 *            the appliance brand
 	 * @param model
-	 *            the washer model
+	 *            the appliance model
 	 * @param quantity
 	 *            quantity desired to purchase
-	 * @return true if the washer was found with quantity met
+	 * @return true if the appliance was found with quantity met
 	 */
 	public boolean findAppliance(String brand, String model, int quantity) {
 		Iterator<Appliance> appliances = this.iterator();
@@ -95,11 +95,11 @@ public class Inventory extends ItemList<Appliance, String> {
 	}
 
 	/**
-	 * Returns all washers and their quantities currently in the inventory.
+	 * Returns all appliances and their quantities currently in the inventory.
 	 * 
-	 * @return all washers in the inventory
+	 * @return all appliances in the inventory
 	 */
-	/*public Iterator<Washer> getAllWashers() {
+	/*public Iterator<appliance> getAllappliances() {
 		return this.iterator();
 	}*/
 

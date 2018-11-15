@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The WasherList class is used to maintain a collection of washers.
+ * The ApplianceList class is used to maintain a collection of appliances.
  * 
  * ICS372-01 - Group Project #2
  * 

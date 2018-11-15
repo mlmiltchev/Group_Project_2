@@ -3,7 +3,6 @@ package edu.metrostate.ics372.gp2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -34,13 +33,6 @@ public class UserInterface {
 	private static final int LIST_BACKORDERS = 12;
 	private static final int SAVE = 13;
 	private static final int HELP = 14;
-
-	private static final int TYPE_DISHWASHER = 1;
-	private static final int TYPE_DRYER = 2;
-	private static final int TYPE_FRIDGE = 3;
-	private static final int TYPE_FURNACE = 4;
-	private static final int TYPE_RANGE = 5;
-	private static final int TYPE_WASHER = 6;
 
 	/**
 	 * Made private for the singleton pattern. Conditionally looks for any saved
@@ -258,12 +250,12 @@ public class UserInterface {
 	
 	public String displayApplianceChoices() {
 		StringBuilder displayApplianceString = new StringBuilder();		
-		displayApplianceString.append("\n[" + TYPE_DISHWASHER + "] Dishwasher.");									
-		displayApplianceString.append("\n[" + TYPE_DRYER + "] Dryer.");
-		displayApplianceString.append("\n[" + TYPE_FRIDGE + "] Refrigerator.");
-		displayApplianceString.append("\n[" + TYPE_FURNACE + "] Furnace.");
-		displayApplianceString.append("\n[" + TYPE_RANGE + "] Kitchen range.");
-		displayApplianceString.append("\n[" + TYPE_WASHER + "] Washer.");
+		displayApplianceString.append("\n[" + Constants.TYPE_DISHWASHER + "] Dishwasher.");									
+		displayApplianceString.append("\n[" + Constants.TYPE_DRYER + "] Dryer.");
+		displayApplianceString.append("\n[" + Constants.TYPE_FRIDGE + "] Refrigerator.");
+		displayApplianceString.append("\n[" + Constants.TYPE_FURNACE + "] Furnace.");
+		displayApplianceString.append("\n[" + Constants.TYPE_RANGE + "] Kitchen range.");
+		displayApplianceString.append("\n[" + Constants.TYPE_WASHER + "] Washer.");
 		return displayApplianceString.toString();
 	}
 	
@@ -287,9 +279,9 @@ public class UserInterface {
 	}
 
 	/**
-	 * Method to be called for adding a washer. Prompts the user for the
+	 * Method to be called for adding a appliance. Prompts the user for the
 	 * appropriate values and uses the appropriate Store method for adding the
-	 * washer.
+	 * appliance.
 	 * 
 	 */
 	public void addAppliance() {
@@ -308,9 +300,9 @@ public class UserInterface {
 	}
 
 	/**
-	 * Method to be called for adding a washer to the inventory. Prompts the
+	 * Method to be called for adding a appliance to the inventory. Prompts the
 	 * user for the appropriate values and uses the appropriate Inventory method
-	 * for adding the washer.
+	 * for adding the appliance.
 	 * 
 	 */
 	public void addToInventory() {
@@ -335,13 +327,13 @@ public class UserInterface {
 	}
 
 	/**
-	 * Method to be called for purchasing a washer. Prompts the user for the
+	 * Method to be called for purchasing a appliance. Prompts the user for the
 	 * appropriate values and uses the appropriate Store method for executing
 	 * the sale.
 	 * 
 	 */
 	/*
-	 * Purchase: The actor identifies the washer by its brand and model names
+	 * Purchase: The actor identifies the appliance by its brand and model names
 	 * and the customer by the customer id. The actor enters the quantity as
 	 * well. If there is enough on stock, the purchase is immediate. Otherwise,
 	 * this goes on back order.
@@ -349,8 +341,8 @@ public class UserInterface {
 	public void purchase() {
 		do {
 			String id = getToken("Enter customer id: ");
-			String brand = getToken("Enter washer brand: ");
-			String model = getToken("Enter washer model: ");
+			String brand = getToken("Enter appliance brand: ");
+			String model = getToken("Enter appliance model: ");
 			int quantity = getInteger("Enter quantity to purchase: ");
 			boolean purchased = store.purchaseAppliance(id, brand, model, quantity);
 			if (purchased) {
@@ -370,7 +362,7 @@ public class UserInterface {
 	}
 
 	/**
-	 * Method to be called for displaying a list of all washers in the
+	 * Method to be called for displaying a list of all appliances in the
 	 * inventory.
 	 * 
 	 */
@@ -404,7 +396,7 @@ public class UserInterface {
 	}
 
 	/**
-	 * Method to be called for displaying the total washer sales.
+	 * Method to be called for displaying the total appliance sales.
 	 * 
 	 */
 	public void displayTotal() {
