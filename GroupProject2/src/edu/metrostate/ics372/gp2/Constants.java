@@ -1,5 +1,13 @@
 package edu.metrostate.ics372.gp2;
 
+/**
+ * This Constants interface is used to manage global variables.
+ * 
+ * ICS372-01 - Group Project #2
+ * 
+ * @author Shannon Fisher
+ * 
+ */
 public interface Constants {
 	public static final int TYPE_ALL = 0;
 	public static final int TYPE_DISHWASHER = 1;
