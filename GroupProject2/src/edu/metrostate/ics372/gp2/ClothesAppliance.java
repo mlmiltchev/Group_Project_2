@@ -26,7 +26,7 @@ public class ClothesAppliance extends Appliance {
 	
 	@Override
 	public String toString() {
-		return String.format("%s, Monthly Repair Cost: $%.2f", super.toString(), getMonthlyRepairCost());
+		return String.format("%s, Monthly Repair Cost: $%.2f.", super.toString(), getMonthlyRepairCost());
 	}
 
 }
