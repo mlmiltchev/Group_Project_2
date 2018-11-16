@@ -431,7 +431,7 @@ public class UserInterface {
 	}
 	
 	public void listRepairPlanCustomers() {
-		System.out.println("Entered listRepairPlanCustomers() method.");
+		store.listRepairPlanCustomers();
 	}
 	
 	public void listBackOrders() {

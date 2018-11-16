@@ -215,6 +215,8 @@ public class Store implements Serializable {
 	 * @return a list of all customers in the system
 	 */
 	public String listCustomers() {
+		//get iterator from customerList
+		//get map from repair plan, any duplicates mark yes in plan
 		return customerList.toString();
 	}
 	
@@ -418,6 +420,15 @@ public class Store implements Serializable {
 			}
 		}
 		System.out.println("All customers have been billed for a total of " + String.format("$%.2f.%n", (float) bill));
+	}
+
+	public void listRepairPlanCustomers() {
+		Map<Customer, ArrayList<ClothesAppliance>> log = repairPlanLog.iterator();
+		for (Entry<Customer, ArrayList<ClothesAppliance>> entry : log.entrySet()) {
+			for (ClothesAppliance appliance : entry.getValue()) {
+				System.out.println("Customer: " + entry.getKey() + " Account balance: " + String.format("$%.2f", (float) entry.getKey().getBalanceDue()) + ". Appliance in repair plan: " + appliance);
+			}
+		}
 	}
 
 }
