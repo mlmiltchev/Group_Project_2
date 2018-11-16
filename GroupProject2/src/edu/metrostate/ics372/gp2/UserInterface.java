@@ -111,7 +111,7 @@ public class UserInterface {
 				listRepairPlanCustomers();
 				break;
 			case LIST_BACKORDERS:
-				listBackorders();
+				listBackOrders();
 				break;
 			}
 			displayMenu();
@@ -433,7 +433,7 @@ public class UserInterface {
 		System.out.println("Entered listRepairPlanCustomers() method.");
 	}
 	
-	public void listBackorders() {
+	public void listBackOrders() {
 		store.listBackOrders();
 	}
 	
