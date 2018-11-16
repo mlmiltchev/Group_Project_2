@@ -215,9 +215,22 @@ public class Store implements Serializable {
 	 * @return a list of all customers in the system
 	 */
 	public String listCustomers() {
-		//get iterator from customerList
-		//get map from repair plan, any duplicates mark yes in plan
-		return customerList.toString();
+		Iterator<Customer> customers = customerList.iterator();
+		StringBuilder stringBuilder = new StringBuilder();
+		Map<Customer, String> customerMap = new LinkedHashMap<Customer, String>();
+		while (customers.hasNext()) {
+			customerMap.put(customers.next(), "No");
+		}
+		
+		Map<Customer, ArrayList<ClothesAppliance>> log = repairPlanLog.iterator();
+		for (Entry<Customer, ArrayList<ClothesAppliance>> entry : log.entrySet()) {
+			customerMap.merge(entry.getKey(), "Yes", (x, y) -> "Yes");
+		}
+
+		for (Map.Entry<Customer, String> entry : customerMap.entrySet()) {
+			stringBuilder.append(entry.getKey() + " In repair plan: " + entry.getValue() + "\n");
+		}
+		return stringBuilder.toString();
 	}
 	
 	/**
