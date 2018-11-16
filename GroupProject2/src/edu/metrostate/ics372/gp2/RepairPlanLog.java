@@ -52,5 +52,8 @@ public class RepairPlanLog implements Serializable {
 			entry.getKey().bill(entry.getValue());
 		}
 	}
-
+	
+	public Map<Customer, ArrayList<ClothesAppliance>> iterator() {
+		return log;
+	}
 }

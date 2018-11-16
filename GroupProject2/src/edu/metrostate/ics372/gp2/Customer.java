@@ -20,11 +20,11 @@ public class Customer implements Serializable, IMatchable<String> {
 	private String name;
 	private String phoneNumber;
 	private String id;
+	private double purchaseCharges = 0.0;
+	private double balanceDue = 0;
 	private List<Appliance> appliancesSold = new LinkedList<Appliance>();
 	private List<BackOrder> appliancesOnBackOrder = new LinkedList<BackOrder>();
 	private List<Transaction> transactions = new LinkedList<Transaction>();
-
-	private double balanceDue = 0;
 
 	/**
 	 * Represents a single customer.
@@ -38,6 +38,25 @@ public class Customer implements Serializable, IMatchable<String> {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		id = MEMBER_STRING + (CustomerIdServer.instance()).getId();
+	}
+	
+	/**
+	 * Increases total purchase charges by the entered amount.
+	 * 
+	 *  @param amount
+	 *            the amount to increase
+	 */
+	public void increasePurchaseCharge(double amount) {
+		purchaseCharges = purchaseCharges + amount;
+	}
+	
+	/**
+	 * Getter for the customer's purchase total.
+	 * 
+	 * @return customer purchase total
+	 */
+	public double getPurchaseCharges() {
+		return purchaseCharges;
 	}
 
 	/**

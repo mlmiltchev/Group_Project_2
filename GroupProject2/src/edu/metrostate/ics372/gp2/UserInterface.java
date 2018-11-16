@@ -401,6 +401,7 @@ public class UserInterface {
 	 */
 	public void displayTotal() {
 		System.out.println("Total sales: " + String.format("$%.2f.%n", (float) store.getTotalSales()));
+		System.out.println("Total repair plan income: " + String.format("$%.2f.%n", (float) store.getRepairPlanIncome()));
 	}
 
 	/**
@@ -426,7 +427,7 @@ public class UserInterface {
 	}
 	
 	public void billRepairPlanCustomers() {
-		System.out.println("Entered billRepairPlanCustomers() method.");
+		store.billRepairPlanCustomers();
 	}
 	
 	public void listRepairPlanCustomers() {

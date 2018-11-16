@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 /**
  * The Store class is used for calling the primary business functions of the
  * application. It keeps track of all customers, back orders, and appliances in the
@@ -28,6 +30,7 @@ public class Store implements Serializable {
 	private RepairPlanLog repairPlanLog;
 	private static Store store;
 	private double totalSales = 0.0;
+	private double totalRepairPlanIncome = 0.0;
 	
 
 	/**
@@ -41,6 +44,7 @@ public class Store implements Serializable {
 		backOrderList = BackOrderList.instance();
 		repairPlanLog = RepairPlanLog.instance();
 		totalSales = 0.0;
+		totalRepairPlanIncome = 0.0;
 	}
 
 	/**
@@ -176,6 +180,7 @@ public class Store implements Serializable {
 						if (nextAppliance.matches(appliance.getBrand() + appliance.getModel())) {
 							customer.purchase(nextAppliance);
 							totalSales += nextAppliance.getPrice();
+							customer.increasePurchaseCharge(nextAppliance.getPrice());
 						}
 					}
 					count--;
@@ -313,6 +318,15 @@ public class Store implements Serializable {
 	public double getTotalSales() {
 		return totalSales;
 	}
+	
+	/**
+	 * Getter method to retrieve the total for repair plan incomes.
+	 * 
+	 * @return the repair plan income
+	 */
+	public double getRepairPlanIncome() {
+		return totalRepairPlanIncome;
+	}
 
 	/**
 	 * Retrieves a deserialized version of the Store from disk.
@@ -392,4 +406,18 @@ public class Store implements Serializable {
 			System.out.println("Customer does not exist.");
 		}
 	}
+
+	public void billRepairPlanCustomers() {
+		repairPlanLog.billCustomers();
+		double bill = 0;
+		Map<Customer, ArrayList<ClothesAppliance>> log = repairPlanLog.iterator();
+		for (Entry<Customer, ArrayList<ClothesAppliance>> entry : log.entrySet()) {
+			for (ClothesAppliance appliance : entry.getValue()) {
+				totalRepairPlanIncome += appliance.getMonthlyRepairCost();
+				bill += appliance.getMonthlyRepairCost();
+			}
+		}
+		System.out.println("All customers have been billed for a total of " + String.format("$%.2f.%n", (float) bill));
+	}
+
 }
