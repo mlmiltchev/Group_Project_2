@@ -365,10 +365,32 @@ public class Store implements Serializable {
 	}
 
 	public void enrollInRepairPlan(String customerId, String applianceId) {
-		repairPlanLog.insertRepairPlan(searchCustomers(customerId), (ClothesAppliance) searchAppliances(applianceId));
+		Appliance appliance = searchAppliances(applianceId);
+		Customer customer = searchCustomers(customerId);
+		if(customer != null) {
+			if(appliance != null && (appliance.getType() == Constants.TYPE_WASHER || appliance.getType() == Constants.TYPE_DRYER)) {
+				repairPlanLog.insertRepairPlan(customer, (ClothesAppliance) appliance);
+				System.out.println("Customer: " + customer + " with appliance: " + appliance + " entered for a repair plan.");
+			} else {
+				System.out.println("Appliance is not eligable for a repair plan.");
+			}
+		} else {
+			System.out.println("Customer does not exist.");
+		}
 	}
 
 	public void withdrawFromRepairPlan(String customerId, String applianceId) {
-		repairPlanLog.withdrawRepairPlan(searchCustomers(customerId), (ClothesAppliance) searchAppliances(applianceId));
+		Appliance appliance = searchAppliances(applianceId);
+		Customer customer = searchCustomers(customerId);
+		if(customer != null) {
+			if(appliance != null && (appliance.getType() == Constants.TYPE_WASHER || appliance.getType() == Constants.TYPE_DRYER)) {
+				repairPlanLog.withdrawRepairPlan(searchCustomers(customerId), (ClothesAppliance) appliance);
+				System.out.println("Customer: " + customer + " with appliance: " + appliance + " removed from repair plan.");
+			} else {
+				System.out.println("Appliance is not eligable for a repair plan.");
+			}
+		} else {
+			System.out.println("Customer does not exist.");
+		}
 	}
 }
