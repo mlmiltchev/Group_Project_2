@@ -35,10 +35,15 @@ public class RepairPlanLog implements Serializable {
 		if (log.containsKey(customer)) {
 			if (log.get(customer).contains(appliance)) {
 				log.get(customer).remove(appliance);
+				System.out.println("Customer: " + customer + " with appliance: " + appliance + " removed from repair plan.");
 				if (log.get(customer).isEmpty()) {
 					log.remove(customer);
 				}
+			} else {
+				System.out.println("Customer: " + customer + " does not have a plan for appliance: " + appliance);
 			}
+		} else {
+			System.out.println("Customer: " + customer + " does not have a plan for appliance: " + appliance);
 		}
 	}
 

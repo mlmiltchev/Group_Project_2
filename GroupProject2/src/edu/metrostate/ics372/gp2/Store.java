@@ -385,7 +385,6 @@ public class Store implements Serializable {
 		if(customer != null) {
 			if(appliance != null && (appliance.getType() == Constants.TYPE_WASHER || appliance.getType() == Constants.TYPE_DRYER)) {
 				repairPlanLog.withdrawRepairPlan(searchCustomers(customerId), (ClothesAppliance) appliance);
-				System.out.println("Customer: " + customer + " with appliance: " + appliance + " removed from repair plan.");
 			} else {
 				System.out.println("Appliance is not eligable for a repair plan.");
 			}
