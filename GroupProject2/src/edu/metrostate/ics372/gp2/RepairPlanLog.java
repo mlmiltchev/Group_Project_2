@@ -22,7 +22,7 @@ public class RepairPlanLog implements Serializable {
 		}
 	}
 
-	public void insertRepairPlan(Customer customer, ClothesAppliance appliance) {
+	public void insert(Customer customer, ClothesAppliance appliance) {
 		if (log.containsKey(customer)) {
 			log.get(customer).add(appliance);
 		} else {
@@ -31,7 +31,7 @@ public class RepairPlanLog implements Serializable {
 		}
 	}
 
-	public void withdrawRepairPlan(Customer customer, ClothesAppliance appliance) {
+	public void withdraw(Customer customer, ClothesAppliance appliance) {
 		if (log.containsKey(customer)) {
 			if (log.get(customer).contains(appliance)) {
 				log.get(customer).remove(appliance);

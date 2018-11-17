@@ -102,10 +102,10 @@ public class UserInterface {
 				enrollInRepairPlan();
 				break;
 			case WITHDRAW_REPAIR_PLAN:
-				withdrawFromRepairPlan();
+				withdrawRepairPlan();
 				break;
 			case BILL_REPAIR_PLAN:
-				billRepairPlanCustomers();
+				billRepairPlan();
 				break;
 			case LIST_REPAIR_PLAN_CUSTOMERS:
 				listRepairPlanCustomers();
@@ -418,16 +418,16 @@ public class UserInterface {
 		store.enrollInRepairPlan(id, brand + model);
 	}
 	
-	public void withdrawFromRepairPlan() {
+	public void withdrawRepairPlan() {
 		String id = getToken("Enter customer id: ");
 		String brand = getToken("Enter appliance brand: ");
 		String model = getToken("Enter appliance model: ");
 
-		store.withdrawFromRepairPlan(id, brand + model);
+		store.withdrawRepairPlan(id, brand + model);
 	}
 	
-	public void billRepairPlanCustomers() {
-		store.billRepairPlanCustomers();
+	public void billRepairPlan() {
+		store.billRepairPlan();
 	}
 	
 	public void listRepairPlanCustomers() {

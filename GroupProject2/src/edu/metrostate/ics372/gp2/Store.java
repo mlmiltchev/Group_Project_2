@@ -394,11 +394,11 @@ public class Store implements Serializable {
 	}
 
 	public void enrollInRepairPlan(String customerId, String applianceId) {
-		Appliance appliance = searchAppliances(applianceId);
 		Customer customer = searchCustomers(customerId);
+		Appliance appliance = searchAppliances(applianceId);
 		if(customer != null) {
 			if(appliance != null && (appliance.getType() == Constants.TYPE_WASHER || appliance.getType() == Constants.TYPE_DRYER)) {
-				repairPlanLog.insertRepairPlan(customer, (ClothesAppliance) appliance);
+				repairPlanLog.insert(customer, (ClothesAppliance) appliance);
 				System.out.println("Customer: " + customer + " with appliance: " + appliance + " entered for a repair plan.");
 			} else {
 				System.out.println("Appliance is not eligable for a repair plan.");
@@ -408,12 +408,12 @@ public class Store implements Serializable {
 		}
 	}
 
-	public void withdrawFromRepairPlan(String customerId, String applianceId) {
-		Appliance appliance = searchAppliances(applianceId);
+	public void withdrawRepairPlan(String customerId, String applianceId) {
 		Customer customer = searchCustomers(customerId);
+		Appliance appliance = searchAppliances(applianceId);
 		if(customer != null) {
 			if(appliance != null && (appliance.getType() == Constants.TYPE_WASHER || appliance.getType() == Constants.TYPE_DRYER)) {
-				repairPlanLog.withdrawRepairPlan(searchCustomers(customerId), (ClothesAppliance) appliance);
+				repairPlanLog.withdraw(customer, (ClothesAppliance) appliance);
 			} else {
 				System.out.println("Appliance is not eligable for a repair plan.");
 			}
@@ -422,7 +422,7 @@ public class Store implements Serializable {
 		}
 	}
 
-	public void billRepairPlanCustomers() {
+	public void billRepairPlan() {
 		repairPlanLog.billCustomers();
 		double bill = 0;
 		Map<Customer, ArrayList<ClothesAppliance>> log = repairPlanLog.iterator();
